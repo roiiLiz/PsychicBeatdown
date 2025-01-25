@@ -12,14 +12,20 @@ public enum EnemyState
 
 public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IThrowable
 {
+    [Header("Stats")]
     [SerializeField] protected Stats stats;
+    [Space]
+    [Header("Components")]
+    [SerializeField] protected HealthComponent healthComponent;
+    [SerializeField] protected MovementComponent movementComponent;
+    [Space]
+    [Header("Sprite Variables")]
     [SerializeField] protected SpriteRenderer selectedSprite;
     [SerializeField] protected SpriteMask spriteMask;
+
     protected bool isSelected = false;
     protected EnemyState currentState = EnemyState.IDLE;
 
-    protected int _maxHealth;
-    protected float _movementSpeed;
     protected int _attackDamage;
 
     protected virtual void Start()
@@ -36,11 +42,11 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     protected virtual void InitializeStats(Stats stats)
     {
-        _maxHealth = stats.maxHealth;
-        _movementSpeed = stats.movementSpeed;
+        healthComponent.SetHealth(stats.maxHealth);
+        movementComponent.movementSpeed = stats.movementSpeed;
         _attackDamage = stats.damageAmount;
 
-        Debug.Log("Stats initalized");
+        // Debug.Log("Stats initalized");
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)

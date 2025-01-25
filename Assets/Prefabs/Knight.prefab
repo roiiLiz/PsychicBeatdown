@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 1900939877793682799}
   - component: {fileID: 6654813097397279350}
   - component: {fileID: 7492209857909418868}
+  - component: {fileID: 7411619229258172720}
   - component: {fileID: 3653594261560006789}
   - component: {fileID: 1473718318041280228}
   - component: {fileID: 2590583263333383239}
@@ -348,8 +349,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: ee024b05f5ba5de4b82cfefe88985c86, type: 2}
+  healthComponent: {fileID: 7411619229258172720}
+  movementComponent: {fileID: 3653594261560006789}
   selectedSprite: {fileID: 8304826281642747673}
   spriteMask: {fileID: 9103631797217813597}
+--- !u!114 &7411619229258172720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893180252918547960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f5bbd335769df45873b8331b172dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathComponent: {fileID: 11400000, guid: d40f3e974536465448067bf003110793, type: 2}
 --- !u!114 &3653594261560006789
 MonoBehaviour:
   m_ObjectHideFlags: 0
