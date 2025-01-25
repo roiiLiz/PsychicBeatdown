@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] MovementComponent movement;
+    [SerializeField] ManaManager mana;
 
     Vector2 movementDirection;
 
@@ -12,5 +13,10 @@ public class Player : MonoBehaviour
         movementDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         movement.MoveTowards(movementDirection, gameObject);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+        }
     }
 }

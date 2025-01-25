@@ -71,4 +71,9 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         Debug.Log($"{name} selected");
     }
+
+    public GameObject GetThrowableObject()
+    {
+        return this.gameObject;
+    }
 }
