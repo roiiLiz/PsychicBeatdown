@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df12214015fbf44cbd811c662a8c456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaRegenAmount: 5
+  manaRegenAmount: 30
 --- !u!1 &6248523972778632526
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class ManaManager : MonoBehaviour
     void Update()
     {
         currentMana += manaRegenAmount * Time.deltaTime;
-        Mathf.Clamp(currentMana, 0, MAX_MANA);
+        currentMana = Mathf.Clamp(currentMana, 0, MAX_MANA);
 
         UpdateUI?.Invoke(currentMana);
     }
