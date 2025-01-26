@@ -8,7 +8,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] InputReader input;
     [SerializeField] CanvasGroup pauseCanvas;
 
-    bool isPaused = false;
+    public static bool isPaused = false;
 
     void OnEnable() => input.PauseEvent += TogglePause;
     void OnDisable() => input.PauseEvent -= TogglePause;
