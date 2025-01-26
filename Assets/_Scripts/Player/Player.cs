@@ -3,34 +3,54 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Input Asset")]
+    [SerializeField] InputReader input;
+    [Header("Components")]
     [SerializeField] MovementComponent movement;
     [SerializeField] ManaManager mana;
 
-    PlayerInput input;
     Vector2 movementDirection;
 
-    void Awake()
+    
+    void OnEnable()
     {
-        input = PlayerInput.instance;
+        input.MoveEvent += OnMove;
+        input.FireEvent += OnFire;
     }
 
-    private void Update()
+    void OnDisable()
+    {
+        input.MoveEvent -= OnMove;
+        input.FireEvent -= OnFire;
+    }
+
+    void OnMove(Vector2 direction)
+    {
+        movementDirection = direction;
+    }
+
+    void OnFire()
+    {
+        mana.SpendMana(25);
+    }
+
+     void Update()
     {
         HandleMovement();
-        HandleFire();
+        // HandleFire();
     }
 
-    private void HandleMovement()
+    void HandleMovement()
     {
-        movementDirection = input.moveInput;
+        // movementDirection = input.moveInput;
         movement.MoveTowards(movementDirection, gameObject);
     }
 
-    private void HandleFire()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            mana.SpendMana(25);
-        }
-    }
+    // void HandleFire()
+    // {
+    //     if (input.fireTriggered)
+    //     {
+    //         mana.SpendMana(25);
+    //     }
+    // }
 }

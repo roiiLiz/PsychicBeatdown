@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThrowScript : MonoBehaviour
 {
-    [SerializeField] Transform playerPivot;
+    [SerializeField] Transform enemyContainer;
     [SerializeField] float lerpRate = 2f;
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 

@@ -1,9 +1,22 @@
+using System;
 using UnityEngine;
 
 public class FollowMouse : MonoBehaviour
 {
-    [SerializeField] float distanceThreshold;
+    [SerializeField] InputReader input;
+    [SerializeField] float distanceThreshold = 5f;
+
     GameObject player;
+    Vector2 lookInput;
+
+    void OnEnable() => input.LookEvent += UpdateMousePosition;
+
+    void UpdateMousePosition(Vector2 pos)
+    {
+        lookInput = pos;
+    }
+
+    void OnDisable() => input.LookEvent -= UpdateMousePosition;
 
     void Start()
     {
@@ -12,7 +25,7 @@ public class FollowMouse : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(lookInput);
         Vector3 targetPos = (player.transform.position + mousePosition) / 2f;
 
         targetPos.x = Mathf.Clamp(targetPos.x, -distanceThreshold + player.transform.position.x, distanceThreshold + player.transform.position.x);
