@@ -10,13 +10,12 @@ public class FollowMouse : MonoBehaviour
     Vector2 lookInput;
 
     void OnEnable() => input.LookEvent += UpdateMousePosition;
+    void OnDisable() => input.LookEvent -= UpdateMousePosition;
 
     void UpdateMousePosition(Vector2 pos)
     {
         lookInput = pos;
     }
-
-    void OnDisable() => input.LookEvent -= UpdateMousePosition;
 
     void Start()
     {

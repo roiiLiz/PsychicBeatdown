@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2579025039252122578}
   - component: {fileID: 6431203535924720219}
   - component: {fileID: 6019168123302455332}
+  - component: {fileID: 2432052721632571925}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -183,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyContainer: {fileID: 2951015840618830527}
-  lerpRate: 1
+  lerpRate: 0.5
   grabCurve:
     serializedVersion: 2
     m_Curve:
@@ -208,6 +209,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  <throwManaCost>k__BackingField: 25
 --- !u!50 &6019168123302455332
 Rigidbody2D:
   serializedVersion: 4
@@ -235,6 +237,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2432052721632571925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539243688953933793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a204071e7d65848458bc5528be823eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 97cf3ed43ee4a674bb38ba7fb5014012, type: 2}
+  enemyPrefab: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
 --- !u!1 &1875465600703291164
 GameObject:
   m_ObjectHideFlags: 0

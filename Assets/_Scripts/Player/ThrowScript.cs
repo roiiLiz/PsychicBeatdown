@@ -73,8 +73,8 @@ public class ThrowScript : MonoBehaviour
     public void ThrowObject(GameObject objectToThrow)
     {
         objectToThrow.transform.rotation = objectToThrow.transform.parent.transform.rotation;
-        objectToThrow.transform.SetParent(null);
         objectToThrow.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
+        objectToThrow.transform.SetParent(null);
 
         throwable = null;
         throwableObject = null;

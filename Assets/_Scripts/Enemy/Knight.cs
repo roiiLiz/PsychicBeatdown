@@ -17,6 +17,7 @@ public class Knight : Enemy
             case EnemyState.HELD:
                 break;
             case EnemyState.THROWN:
+                transform.Translate(Vector2.right * _thrownSpeed * Time.deltaTime);
                 break;
             default:
                 break;

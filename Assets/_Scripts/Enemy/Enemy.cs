@@ -30,6 +30,7 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     protected EnemyState currentState = EnemyState.IDLE;
 
     protected int _attackDamage;
+    protected float _thrownSpeed;
 
     public static event Action<IThrowable> OnSelected;
 
@@ -51,6 +52,7 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
         healthComponent.SetHealth(stats.maxHealth);
         movementComponent.movementSpeed = stats.movementSpeed;
         _attackDamage = stats.damageAmount;
+        _thrownSpeed = stats.thrownSpeed;
 
         // Debug.Log("Stats initalized");
     }
