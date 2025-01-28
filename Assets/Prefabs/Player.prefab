@@ -140,8 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 97cf3ed43ee4a674bb38ba7fb5014012, type: 2}
-  movement: {fileID: 8903102069675480068}
-  mana: {fileID: 2579025039252122578}
+  movementComponent: {fileID: 8903102069675480068}
+  manaComponent: {fileID: 2579025039252122578}
+  throwComponent: {fileID: 6431203535924720219}
   pivot: {fileID: 6143022349526035835}
 --- !u!114 &8903102069675480068
 MonoBehaviour:

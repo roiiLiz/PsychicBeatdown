@@ -34,10 +34,19 @@ public class Player : MonoBehaviour
 
     void OnFire()
     {
-        if (!PauseManager.isPaused && manaComponent.CanAffordSpell(25))
+        if (!PauseManager.isPaused)
         {
-            manaComponent.SpendMana(25);
-            // throwComponent.Handle
+            if (throwComponent.throwableObject == null && throwComponent.allowAttack)
+            {
+                if (manaComponent.CanAffordSpell(throwComponent.throwManaCost))
+                {
+                    // throwComponent.Handle
+                    manaComponent.SpendMana(throwComponent.throwManaCost);
+                }
+            } else if (throwComponent.throwableObject != null && throwComponent.allowAttack)
+            {
+                throwComponent.ThrowObject(throwComponent.throwableObject);
+            }
         }
     }
 

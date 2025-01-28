@@ -7,9 +7,11 @@ public class ThrowScript : MonoBehaviour
     [SerializeField] Transform enemyContainer;
     [SerializeField] float lerpRate = 2f;
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [field: SerializeField] public int throwManaCost { get; private set; } = 25;
 
     IThrowable throwable = null;
     public GameObject throwableObject { get; private set; } = null;
+    public bool allowAttack { get; private set; } = true;
 
     void OnEnable() { Enemy.OnSelected += HandleThrow; }
     void OnDisable() { Enemy.OnSelected += HandleThrow; }
@@ -52,6 +54,8 @@ public class ThrowScript : MonoBehaviour
 
     private IEnumerator LerpToDefault(GameObject thrownObject, Vector3 from, Vector3 to, float duration)
     {
+        allowAttack = false;
+
         float i = 0.0f;
         float rate = 1.0f / duration;
 
@@ -63,5 +67,16 @@ public class ThrowScript : MonoBehaviour
         }
 
         // throwableObject.transform.localPosition = Vector3.zero;
+        allowAttack = true;
+    }
+
+    public void ThrowObject(GameObject objectToThrow)
+    {
+        objectToThrow.transform.rotation = objectToThrow.transform.parent.transform.rotation;
+        objectToThrow.transform.SetParent(null);
+        objectToThrow.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
+
+        throwable = null;
+        throwableObject = null;
     }
 }
