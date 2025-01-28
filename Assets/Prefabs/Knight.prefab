@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: ee024b05f5ba5de4b82cfefe88985c86, type: 2}
+  startingState: 1
   healthComponent: {fileID: 7411619229258172720}
   movementComponent: {fileID: 3653594261560006789}
   selectedSprite: {fileID: 8304826281642747673}

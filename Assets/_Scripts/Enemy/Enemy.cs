@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,7 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
 {
     [Header("Stats")]
     [SerializeField] protected Stats stats;
+    [SerializeField] protected EnemyState startingState;
     [Space]
     [Header("Components")]
     [SerializeField] protected HealthComponent healthComponent;
@@ -23,24 +25,28 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     [SerializeField] protected SpriteRenderer selectedSprite;
     [SerializeField] protected SpriteMask spriteMask;
 
+    protected GameObject player => GameObject.FindGameObjectWithTag("Player");
     protected bool isSelected = false;
     protected EnemyState currentState = EnemyState.IDLE;
 
     protected int _attackDamage;
 
+    public static event Action<IThrowable> OnSelected;
+
     protected virtual void Start()
     {
-        InitializeStats(stats);
-        InitializeSprite();
+        InitStats(stats);
+        InitSprite();
+        currentState = startingState;
     }
 
-    protected virtual void InitializeSprite()
+    protected virtual void InitSprite()
     {
         selectedSprite.enabled = false;
         spriteMask.enabled = false;
     }
 
-    protected virtual void InitializeStats(Stats stats)
+    protected virtual void InitStats(Stats stats)
     {
         healthComponent.SetHealth(stats.maxHealth);
         movementComponent.movementSpeed = stats.movementSpeed;
@@ -70,10 +76,16 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public virtual void Selected()
     {
         Debug.Log($"{name} selected");
+        OnSelected?.Invoke(this);
     }
 
     public GameObject GetThrowableObject()
     {
         return this.gameObject;
+    }
+
+    public void ChangeState(EnemyState state)
+    {
+        currentState = state;
     }
 }

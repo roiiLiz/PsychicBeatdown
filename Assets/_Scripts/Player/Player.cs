@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     [Header("Input Asset")]
     [SerializeField] InputReader input;
     [Header("Components")]
-    [SerializeField] MovementComponent movement;
-    [SerializeField] ManaManager mana;
+    [SerializeField] MovementComponent movementComponent;
+    [SerializeField] ManaManager manaComponent;
+    [SerializeField] ThrowScript throwComponent;
     [SerializeField] Transform pivot;
 
     Vector2 movementDirection;
@@ -33,9 +34,10 @@ public class Player : MonoBehaviour
 
     void OnFire()
     {
-        if (!PauseManager.isPaused)
+        if (!PauseManager.isPaused && manaComponent.CanAffordSpell(25))
         {
-            mana.SpendMana(25);
+            manaComponent.SpendMana(25);
+            // throwComponent.Handle
         }
     }
 
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
     void HandleMovement()
     {
         // movementDirection = input.moveInput;
-        movement.MoveTowards(movementDirection, gameObject);
+        movementComponent.MoveTowards(movementDirection, gameObject);
     }
 
     void RotatePivot()
