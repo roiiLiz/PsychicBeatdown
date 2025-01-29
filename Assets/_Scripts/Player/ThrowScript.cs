@@ -9,14 +9,14 @@ public class ThrowScript : MonoBehaviour
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [field: SerializeField] public int throwManaCost { get; private set; } = 25;
 
-    IThrowable throwable = null;
+    IThrow throwable = null;
     public GameObject throwableObject { get; private set; } = null;
     public bool allowAttack { get; private set; } = true;
 
     void OnEnable() { Enemy.OnSelected += HandleThrow; }
     void OnDisable() { Enemy.OnSelected += HandleThrow; }
 
-    private void HandleThrow(IThrowable throwSelection)
+    private void HandleThrow(IThrow throwSelection)
     {
         // Grab enemy if no enemy is held
         if (throwable == null)

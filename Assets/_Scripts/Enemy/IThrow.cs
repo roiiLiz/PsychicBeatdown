@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IThrowable
+public interface IThrow
 {
     public void Selected();
     public GameObject GetThrowableObject();

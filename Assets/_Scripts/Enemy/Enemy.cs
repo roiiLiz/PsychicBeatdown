@@ -11,7 +11,7 @@ public enum EnemyState
     THROWN
 }
 
-public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IThrowable
+public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IThrow, IThrowable
 {
     [Header("Stats")]
     [SerializeField] protected Stats stats;
@@ -29,10 +29,12 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     protected bool isSelected = false;
     protected EnemyState currentState = EnemyState.IDLE;
 
+    private ThrowManager throwManager => player.GetComponent<ThrowManager>();
+
     protected int _attackDamage;
     protected float _thrownSpeed;
 
-    public static event Action<IThrowable> OnSelected;
+    public static event Action<IThrow> OnSelected;
 
     protected virtual void Start()
     {
@@ -78,7 +80,7 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public virtual void Selected()
     {
         Debug.Log($"{name} selected");
-        OnSelected?.Invoke(this);
+        // OnSelected?.Invoke(this);
     }
 
     public GameObject GetThrowableObject()
@@ -89,5 +91,28 @@ public abstract class Enemy : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public void ChangeState(EnemyState state)
     {
         currentState = state;
+    }
+
+    public void RequestSelection()
+    {
+        // throwManager.RequestSelection(this);
+        throw new NotImplementedException();
+    }
+
+    public GameObject GetGameObject()
+    {
+        return this.gameObject;
+    }
+
+    public void NotifyThrowMediator(GameObject gameObject)
+    {
+        // throwManager.SetThrownObject(gameObject);
+
+    }
+
+    public void DebugNotify(string message)
+    {
+        Debug.Log("Selected item: " + message);
+        // throw new NotImplementedException();
     }
 }
