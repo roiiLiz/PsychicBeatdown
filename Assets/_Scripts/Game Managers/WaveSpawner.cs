@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,36 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] float timeBetweenSpawns = 0.15f;
     [SerializeField] float waveRadius = 10f;
 
+    public static event Action<Wave> CurrentWaveInfo; 
+
+#region Init
+
+    void OnEnable() => WaveManager.RequestNextWave += BeginWaveCooldown;
+    void OnDisable() => WaveManager.RequestNextWave -= BeginWaveCooldown;
+
+#endregion
+
 #region Spawning Logic
+
+    void BeginWaveCooldown(float cooldownDuration, int waveToSpawn)
+    {
+        // Debug.Log("Starting wave cooldown...");
+        StartCoroutine(SpawnNextWave(cooldownDuration, waveToSpawn));
+    }
+
+    IEnumerator SpawnNextWave(float cooldownDuration, int waveToSpawn)
+    {
+        yield return new WaitForSeconds(cooldownDuration);
+
+        // Debug.Log($"Wave cooldown finished, spawning wave {waveToSpawn}");
+        StartCoroutine(SpawnWave(waveToSpawn));
+    }
+
 
     public IEnumerator SpawnWave(int waveNumber)
     {
+        CurrentWaveInfo?.Invoke(waves[waveNumber]);
+
         for (int i = 0; i < waves[waveNumber].waveAmount; i++)
         {
             ChooseWeightedEnemy(waveNumber);
@@ -30,7 +57,7 @@ public class WaveSpawner : MonoBehaviour
             totalSpawnChance += spawn.weight;
         }
 
-        float rand = Random.Range(0, totalSpawnChance);
+        float rand = UnityEngine.Random.Range(0, totalSpawnChance);
         float cumulativeChance = 0.0f;
 
         foreach (WaveSpawn spawn in waves[index].spawns)
@@ -65,7 +92,7 @@ public class WaveSpawner : MonoBehaviour
 
     Vector3 RandomPointAtCircleEdge(float radius)
     {
-        Vector3 spawnDirection = Random.insideUnitSphere;
+        Vector3 spawnDirection = UnityEngine.Random.insideUnitSphere;
         spawnDirection.z = 0.0f;
 
         spawnDirection.Normalize();

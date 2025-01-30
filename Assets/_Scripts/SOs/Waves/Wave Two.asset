@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a91212a101eb542b2652c6cc42469d, type: 3}
   m_Name: Wave Two
   m_EditorClassIdentifier: 
+  waveName: Wave Two
   spawns:
   - enemyToSpawn: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
     weight: 0
