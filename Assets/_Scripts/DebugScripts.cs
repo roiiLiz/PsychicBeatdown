@@ -15,14 +15,14 @@ public class DebugScripts : MonoBehaviour
 
     void UpdateMousePosition(Vector2 pos)
     {
-        mousePoint = pos;
+        mousePoint = Camera.main.ScreenToWorldPoint(pos);
     }
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Instantiate(enemyPrefab, mousePoint, Quaternion.identity);
+            Instantiate(enemyPrefab, new Vector3(mousePoint.x, mousePoint.y, 0f), Quaternion.identity);
         }
     }
 }

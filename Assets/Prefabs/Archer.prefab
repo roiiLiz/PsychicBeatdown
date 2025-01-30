@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 3653594261560006789}
   - component: {fileID: 1473718318041280228}
   - component: {fileID: 2590583263333383239}
+  - component: {fileID: 2381493352443753784}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -452,3 +453,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
+--- !u!114 &2381493352443753784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893180252918547960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d789e9224c25d44eaf9c2e3d08cc948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,38 +9,73 @@ public class ThrowScript : MonoBehaviour
     [SerializeField] float lerpRate = 2f;
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [field: SerializeField] public int throwManaCost { get; private set; } = 25;
+    // [SerializeField] float attackCooldown = 0.15f;
 
-    IThrow throwable = null;
-    public GameObject throwableObject { get; private set; } = null;
-    public bool allowAttack { get; private set; } = true;
+    public GameObject currentSelection { get; private set; } = null;
+    public GameObject heldObject { get; private set; } = null;
+    public bool canAttack { get; private set; } = true;
 
-    void OnEnable() { Enemy.OnSelected += HandleThrow; }
-    void OnDisable() { Enemy.OnSelected += HandleThrow; }
+    public static event Action<int> OnGrabObject;
 
-    private void HandleThrow(IThrow throwSelection)
+    void OnEnable() { ThrowableComponent.OnThrowableSelected += SetCurrentSelection; }
+    void OnDisable() { ThrowableComponent.OnThrowableSelected -= SetCurrentSelection; }
+
+    void SetCurrentSelection(MonoBehaviour context) => currentSelection = context != null ? context.gameObject : null;
+
+    public void HandleFireInput()
     {
-        // Grab enemy if no enemy is held
-        if (throwable == null)
+        // if already has held throwable, then throw it
+        if (heldObject != null)
         {
-            throwable = throwSelection;
-            throwableObject = throwable.GetThrowableObject();
-            throwableObject.GetComponent<Enemy>().ChangeState(EnemyState.HELD);
+            ThrowCurrentObject();
+        }
 
-            throwableObject.transform.parent = enemyContainer;
-            StartCoroutine(LerpToDefault(throwableObject, throwableObject.transform.localPosition, Vector3.zero, lerpRate));
-            StartCoroutine(RotateToDefault(throwableObject, throwableObject.transform.localRotation, throwableObject.transform.parent.transform.localRotation, lerpRate));
-        } else // Throw enemy if enemy is held
+        if (currentSelection != null && heldObject == null)
         {
-            throwableObject.transform.rotation = throwableObject.transform.parent.transform.rotation;
-            throwableObject.transform.SetParent(null);
-            throwableObject.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
-
-            throwable = null;
-            throwableObject = null;
+            SetHeldObject(currentSelection);
         }
     }
 
-    private IEnumerator RotateToDefault(GameObject thrownObject, Quaternion fromRot, Quaternion toRot, float duration)
+    void ThrowCurrentObject()
+    {
+        heldObject.transform.rotation = heldObject.transform.parent.transform.rotation;
+        heldObject.transform.SetParent(null);
+        Enemy enemy = heldObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.ChangeState(EnemyState.THROWN);
+        }
+
+        heldObject = null;
+    }
+
+    void SetHeldObject(GameObject currentSelection)
+    {
+        heldObject = currentSelection;
+
+        Enemy enemy = heldObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.ChangeState(EnemyState.HELD);
+        }
+
+        heldObject.transform.parent = enemyContainer;
+        StartCoroutine(LerpToDefault(heldObject, heldObject.transform.localPosition, Vector3.zero, lerpRate));
+        StartCoroutine(RotateToDefault(heldObject, heldObject.transform.localRotation, heldObject.transform.parent.transform.localRotation, lerpRate));
+
+        // StartCoroutine(StartAttackCooldown());
+    }
+
+    // IEnumerator StartAttackCooldown()
+    // {
+    //     canAttack = false;
+
+    //     yield return new WaitForSeconds(attackCooldown);
+
+    //     canAttack = true;
+    // }
+
+    IEnumerator RotateToDefault(GameObject thrownObject, Quaternion fromRot, Quaternion toRot, float duration)
     {
         float i = 0.0f;
         float rate = 1.0f / duration;
@@ -52,9 +88,9 @@ public class ThrowScript : MonoBehaviour
         }
     }
 
-    private IEnumerator LerpToDefault(GameObject thrownObject, Vector3 from, Vector3 to, float duration)
+    IEnumerator LerpToDefault(GameObject thrownObject, Vector3 from, Vector3 to, float duration)
     {
-        allowAttack = false;
+        canAttack = false;
 
         float i = 0.0f;
         float rate = 1.0f / duration;
@@ -67,16 +103,16 @@ public class ThrowScript : MonoBehaviour
         }
 
         // throwableObject.transform.localPosition = Vector3.zero;
-        allowAttack = true;
+        canAttack = true;
     }
 
-    public void ThrowObject(GameObject objectToThrow)
-    {
-        objectToThrow.transform.rotation = objectToThrow.transform.parent.transform.rotation;
-        objectToThrow.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
-        objectToThrow.transform.SetParent(null);
+    // public void ThrowObject(GameObject objectToThrow)
+    // {
+    //     objectToThrow.transform.rotation = objectToThrow.transform.parent.transform.rotation;
+    //     objectToThrow.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
+    //     objectToThrow.transform.SetParent(null);
 
-        throwable = null;
-        throwableObject = null;
-    }
+    //     throwable = null;
+    //     heldObject = null;
+    // }
 }

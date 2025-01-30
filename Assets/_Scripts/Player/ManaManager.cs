@@ -7,10 +7,7 @@ public class ManaManager : MonoBehaviour
     [Tooltip("The amount of mana regenerated over one second")]
     [SerializeField] float manaRegenAmount = 5f;
 
-    float currentMana;
-
-    public float CurrentMana { get => currentMana; }
-    public float MaxMana { get => MAX_MANA; }
+    float currentMana = 0f;
 
     public static event Action<float, float> InitUI; 
     public static event Action<float> UpdateUI;
@@ -19,27 +16,24 @@ public class ManaManager : MonoBehaviour
     {
         currentMana = MAX_MANA;
 
-        InitUI?.Invoke(currentMana, MAX_MANA);
+        InitUI?.Invoke(currentMana / MAX_MANA, 1f);
     }
     
     void Update()
     {
         currentMana += manaRegenAmount * Time.deltaTime;
-        currentMana = Mathf.Clamp(currentMana, 0, MAX_MANA);
+        currentMana = Mathf.Clamp(currentMana, 0.0f, MAX_MANA);
 
-        UpdateUI?.Invoke(currentMana);
+        UpdateUI?.Invoke(currentMana / MAX_MANA);
     }
 
     public void SpendMana(int value)
     {
-        if (value <= currentMana)
+        if (CanAffordSpell(value))
         {
             currentMana -= value;
         }
     }
 
-    public bool CanAffordSpell(int value)
-    {
-        return value >= currentMana;
-    }
+    public bool CanAffordSpell(int value) => value <= currentMana;
 }

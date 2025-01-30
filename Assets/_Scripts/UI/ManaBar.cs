@@ -14,8 +14,8 @@ public class ManaBar : MonoBehaviour
         manaSlider.value = currentValue;
     }
 
-    void UpdateSlider(float curerntMana)
+    void UpdateSlider(float value)
     {
-        manaSlider.value = curerntMana;
+        manaSlider.value = value;
     }
 }

@@ -34,19 +34,17 @@ public class Player : MonoBehaviour
 
     void OnFire()
     {
-        if (!PauseManager.isPaused)
+        if (!PauseManager.isPaused && throwComponent.canAttack)
         {
-            if (throwComponent.throwableObject == null && throwComponent.allowAttack)
+            if (throwComponent.currentSelection != null)
             {
                 if (manaComponent.CanAffordSpell(throwComponent.throwManaCost))
                 {
-                    // throwComponent.Handle
                     manaComponent.SpendMana(throwComponent.throwManaCost);
                 }
-            } else if (throwComponent.throwableObject != null && throwComponent.allowAttack)
-            {
-                throwComponent.ThrowObject(throwComponent.throwableObject);
-            }
+            } 
+
+            throwComponent.HandleFireInput();
         }
     }
 
@@ -56,11 +54,7 @@ public class Player : MonoBehaviour
         RotatePivot();
     }
 
-    void HandleMovement()
-    {
-        // movementDirection = input.moveInput;
-        movementComponent.MoveTowards(movementDirection, gameObject);
-    }
+    void HandleMovement() => movementComponent.MoveTowards(movementDirection, gameObject);
 
     void RotatePivot()
     {
@@ -72,12 +66,4 @@ public class Player : MonoBehaviour
 
         pivot.transform.rotation = Quaternion.AngleAxis(lookAngle, Vector3.forward);
     }
-
-    // void HandleFire()
-    // {
-    //     if (input.fireTriggered)
-    //     {
-    //         mana.SpendMana(25);
-    //     }
-    // }
 }
