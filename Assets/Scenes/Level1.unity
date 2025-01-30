@@ -284,6 +284,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - {fileID: 11400000, guid: 4156dd3eacbfa644cb2d9b537e1fc0a3, type: 2}
+  - {fileID: 11400000, guid: 062b311bef3b1d54ba7ecf7a5445e4f3, type: 2}
+  - {fileID: 11400000, guid: 282327141e8074f49ba2ab224a61e555, type: 2}
+  - {fileID: 11400000, guid: 2946fdc6bfc9c2840b53db2019c47fa4, type: 2}
+  - {fileID: 11400000, guid: b0685397cb86fef469161ac540895186, type: 2}
   timeBetweenSpawns: 1
   waveRadius: 20
 --- !u!114 &39078228

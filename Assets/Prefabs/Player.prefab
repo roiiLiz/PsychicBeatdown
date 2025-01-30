@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df12214015fbf44cbd811c662a8c456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaRegenAmount: 10
+  manaRegenAmount: 12.5
 --- !u!114 &6431203535924720219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,8 +218,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

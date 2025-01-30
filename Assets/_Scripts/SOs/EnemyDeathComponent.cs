@@ -8,6 +8,7 @@ public class EnemyDeathComponent : DeathComponent
 
     public override void Die(MonoBehaviour context)
     {
-        throw new System.NotImplementedException();
+        OnEnemyDeath?.Invoke();
+        Destroy(context.gameObject);
     }
 }

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b079c017a2516409975e5cd6a253f1, type: 3}
-  m_Name: Knight Stats
+  m_Script: {fileID: 11500000, guid: 42a91212a101eb542b2652c6cc42469d, type: 3}
+  m_Name: Wave Five
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  movementSpeed: 2
-  damageAmount: 5
-  thrownSpeed: 15
+  spawns:
+  - enemyToSpawn: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
+    weight: 1
+  waveAmount: 1
+  isBoss: 1

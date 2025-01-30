@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42a91212a101eb542b2652c6cc42469d, type: 3}
-  m_Name: Wave One
+  m_Name: Wave Four
   m_EditorClassIdentifier: 
   spawns:
   - enemyToSpawn: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
     weight: 1
   - enemyToSpawn: {fileID: 5893180252918547960, guid: eb5f0a6c428c39a4c95a487e261d2651, type: 3}
-    weight: 0
+    weight: 1
   - enemyToSpawn: {fileID: 5893180252918547960, guid: 8c02489b6be5bf6459a1da9ffb5b9dff, type: 3}
-    weight: 0
-  waveAmount: 5
+    weight: 1
+  waveAmount: 20
   isBoss: 0

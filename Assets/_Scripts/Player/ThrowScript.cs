@@ -39,19 +39,21 @@ public class ThrowScript : MonoBehaviour
     void ThrowCurrentObject()
     {
         heldObject.transform.rotation = heldObject.transform.parent.transform.rotation;
+        heldObject.layer = LayerMask.NameToLayer("ThrownObjects");
         heldObject.transform.SetParent(null);
+
         Enemy enemy = heldObject.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.ChangeState(EnemyState.THROWN);
         }
-
         heldObject = null;
     }
 
     void SetHeldObject(GameObject currentSelection)
     {
         heldObject = currentSelection;
+        heldObject.layer = LayerMask.NameToLayer("HeldObjects");
 
         Enemy enemy = heldObject.GetComponent<Enemy>();
         if (enemy != null)
@@ -62,18 +64,7 @@ public class ThrowScript : MonoBehaviour
         heldObject.transform.parent = enemyContainer;
         StartCoroutine(LerpToDefault(heldObject, heldObject.transform.localPosition, Vector3.zero, lerpRate));
         StartCoroutine(RotateToDefault(heldObject, heldObject.transform.localRotation, heldObject.transform.parent.transform.localRotation, lerpRate));
-
-        // StartCoroutine(StartAttackCooldown());
     }
-
-    // IEnumerator StartAttackCooldown()
-    // {
-    //     canAttack = false;
-
-    //     yield return new WaitForSeconds(attackCooldown);
-
-    //     canAttack = true;
-    // }
 
     IEnumerator RotateToDefault(GameObject thrownObject, Quaternion fromRot, Quaternion toRot, float duration)
     {
@@ -102,17 +93,6 @@ public class ThrowScript : MonoBehaviour
             yield return null;
         }
 
-        // throwableObject.transform.localPosition = Vector3.zero;
         canAttack = true;
     }
-
-    // public void ThrowObject(GameObject objectToThrow)
-    // {
-    //     objectToThrow.transform.rotation = objectToThrow.transform.parent.transform.rotation;
-    //     objectToThrow.GetComponent<Enemy>().ChangeState(EnemyState.THROWN);
-    //     objectToThrow.transform.SetParent(null);
-
-    //     throwable = null;
-    //     heldObject = null;
-    // }
 }

@@ -32,6 +32,8 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     protected int _attackDamage;
     protected float _thrownSpeed;
 
+#region Initialization
+
     protected virtual void Start()
     {
         InitStats(stats);
@@ -55,6 +57,8 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         // Debug.Log("Stats initalized");
     }
 
+#endregion
+
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         selectedSprite.enabled = true;
@@ -71,4 +75,17 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         currentState = state;
     }
+
+    // protected virtual void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects"))
+    //     {
+    //         HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
+    //         if (thrownObjectHealth != null)
+    //         {
+    //             thrownObjectHealth.Damage(thrownObjectHealth.MaxHealth);
+    //             healthComponent.Damage(thrownObjectHealth.MaxHealth);
+    //         }
+    //     }
+    // }
 }
