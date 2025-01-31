@@ -15,27 +15,12 @@ public class WaveSpawner : MonoBehaviour
 
 #region Init
 
-    void OnEnable() => WaveManager.RequestNextWave += BeginWaveCooldown;
-    void OnDisable() => WaveManager.RequestNextWave -= BeginWaveCooldown;
+    // void OnEnable() => WaveManager.RequestNextWave += BeginWaveCooldown;
+    // void OnDisable() => WaveManager.RequestNextWave -= BeginWaveCooldown;
 
 #endregion
 
 #region Spawning Logic
-
-    void BeginWaveCooldown(float cooldownDuration, int waveToSpawn)
-    {
-        // Debug.Log("Starting wave cooldown...");
-        StartCoroutine(SpawnNextWave(cooldownDuration, waveToSpawn));
-    }
-
-    IEnumerator SpawnNextWave(float cooldownDuration, int waveToSpawn)
-    {
-        yield return new WaitForSeconds(cooldownDuration);
-
-        // Debug.Log($"Wave cooldown finished, spawning wave {waveToSpawn}");
-        StartCoroutine(SpawnWave(waveToSpawn));
-    }
-
 
     public IEnumerator SpawnWave(int waveNumber)
     {
