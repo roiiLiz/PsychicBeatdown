@@ -37,7 +37,7 @@ public class HealthComponent : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects") || collision.gameObject.layer == LayerMask.NameToLayer("HeldObjects"))
         {
             HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
             if (thrownObjectHealth != null)

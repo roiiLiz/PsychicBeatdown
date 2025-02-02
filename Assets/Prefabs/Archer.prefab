@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ce6562fc96aea448cbf574e3abe688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: ee024b05f5ba5de4b82cfefe88985c86, type: 2}
+  stats: {fileID: 11400000, guid: 01ee7422e7168e34f82e30121f5fb2d6, type: 2}
   startingState: 1
   healthComponent: {fileID: 7411619229258172720}
   movementComponent: {fileID: 3653594261560006789}
