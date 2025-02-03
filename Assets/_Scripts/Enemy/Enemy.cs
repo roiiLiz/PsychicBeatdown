@@ -13,8 +13,8 @@ public enum EnemyState
 
 public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [field: SerializeField] public Stats stats { get; private set; }
     [Header("Stats")]
-    [SerializeField] protected Stats stats;
     [SerializeField] protected EnemyState startingState;
     [Space]
     [Header("Components")]
@@ -22,15 +22,18 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] protected MovementComponent movementComponent;
     [Space]
     [Header("Sprite Variables")]
+    [SerializeField] protected Transform sprite;
     [SerializeField] protected SpriteRenderer selectedSprite;
     [SerializeField] protected SpriteMask spriteMask;
+    [SerializeField] protected float thrownSpinRate = 360f;
+    [SerializeField] protected float heldSpinMultiplier = .25f;
 
     protected GameObject player => GameObject.FindGameObjectWithTag("Player");
     protected bool isSelected = false;
     protected EnemyState currentState = EnemyState.IDLE;
 
     protected int _attackDamage;
-    protected float _thrownSpeed;
+    // protected float _thrownSpeed;
 
 #region Initialization
 
@@ -52,7 +55,7 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         healthComponent.SetHealth(stats.maxHealth);
         movementComponent.movementSpeed = stats.movementSpeed;
         _attackDamage = stats.damageAmount;
-        _thrownSpeed = stats.thrownSpeed;
+        // _thrownSpeed = stats.thrownSpeed;
 
         // Debug.Log("Stats initalized");
     }

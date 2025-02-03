@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b079c017a2516409975e5cd6a253f1, type: 3}
   m_Name: Wizard Stats
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  movementSpeed: 2
+  maxHealth: 1
+  movementSpeed: 4
   damageAmount: 20
-  thrownSpeed: 15
+  pierceAmount: 1
+  thrownSpeed: 25
+  thrownRotationRate: 720
+  heldRotationMultiplier: 0.25
+  shouldRotate: 1

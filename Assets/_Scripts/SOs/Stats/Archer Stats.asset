@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b079c017a2516409975e5cd6a253f1, type: 3}
   m_Name: Archer Stats
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  movementSpeed: 1.5
+  maxHealth: 1
+  movementSpeed: 5
   damageAmount: 10
-  thrownSpeed: 15
+  pierceAmount: 1
+  thrownSpeed: 25
+  thrownRotationRate: 720
+  heldRotationMultiplier: 0.25
+  shouldRotate: 1

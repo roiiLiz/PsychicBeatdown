@@ -35,16 +35,21 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void Die()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects") || collision.gameObject.layer == LayerMask.NameToLayer("HeldObjects"))
-        {
-            HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
-            if (thrownObjectHealth != null)
-            {
-                thrownObjectHealth.Damage(thrownObjectHealth.MaxHealth);
-                Damage(thrownObjectHealth.MaxHealth);
-            }
-        }
+        deathComponent?.Die(this);
     }
+
+    // void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects"))
+    //     {
+    //         HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
+    //         if (thrownObjectHealth != null)
+    //         {
+    //             thrownObjectHealth.Damage(thrownObjectHealth.MaxHealth);
+    //             Damage(thrownObjectHealth.MaxHealth);
+    //         }
+    //     }
+    // }
 }

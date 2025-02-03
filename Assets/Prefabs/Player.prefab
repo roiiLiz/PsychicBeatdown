@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -572490573, guid: 352729aa93d4b52438026b53c4dd99a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92135905aedc5c48922fa0f2e20f4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 7.5
 --- !u!114 &2579025039252122578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyContainer: {fileID: 2951015840618830527}
-  lerpRate: 0.5
+  lerpRate: 0.3
   grabCurve:
     serializedVersion: 2
     m_Curve:
@@ -349,7 +349,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.2, y: 2.2}
+  m_Size: {x: 1.2, y: 1.2}
   m_Direction: 0
 --- !u!50 &7820635197689411348
 Rigidbody2D:

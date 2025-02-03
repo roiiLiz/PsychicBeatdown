@@ -15,9 +15,11 @@ public class Knight : Enemy
             case EnemyState.ATTACKING:
                 break;
             case EnemyState.HELD:
+                sprite.transform.Rotate(0f, 0f, thrownSpinRate * heldSpinMultiplier * Time.deltaTime);
                 break;
             case EnemyState.THROWN:
-                transform.Translate(Vector2.right * _thrownSpeed * Time.deltaTime);
+                // transform.Translate(Vector2.right * _thrownSpeed * Time.deltaTime);
+                // sprite.transform.Rotate(0f, 0f, thrownSpinRate * Time.deltaTime);
                 break;
             default:
                 break;

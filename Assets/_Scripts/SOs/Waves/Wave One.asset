@@ -20,5 +20,5 @@ MonoBehaviour:
     weight: 0
   - enemyToSpawn: {fileID: 5893180252918547960, guid: 8c02489b6be5bf6459a1da9ffb5b9dff, type: 3}
     weight: 0
-  waveAmount: 6
+  waveAmount: 10
   isBoss: 0

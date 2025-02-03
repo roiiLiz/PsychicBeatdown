@@ -42,11 +42,20 @@ public class ThrowScript : MonoBehaviour
         heldObject.layer = LayerMask.NameToLayer("ThrownObjects");
         heldObject.transform.SetParent(null);
 
-        Enemy enemy = heldObject.GetComponent<Enemy>();
-        if (enemy != null)
+        if (!heldObject.TryGetComponent<ThrownObjectComponent>(out ThrownObjectComponent thrownComponent))
         {
-            enemy.ChangeState(EnemyState.THROWN);
+            ThrowableComponent throwableComponent = heldObject.GetComponent<ThrowableComponent>();
+
+            heldObject.AddComponent<ThrownObjectComponent>();
+
+            heldObject.GetComponent<ThrownObjectComponent>().ThrownConstructor(throwableComponent.stats, throwableComponent.shouldRotate, throwableComponent.sprite);
         }
+
+        // Enemy enemy = heldObject.GetComponent<Enemy>();
+        // if (enemy != null)
+        // {
+        //     enemy.ChangeState(EnemyState.THROWN);
+        // }
         heldObject = null;
     }
 
