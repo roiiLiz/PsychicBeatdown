@@ -1,19 +1,21 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ThrownObjectComponent : MonoBehaviour
 {
+    ThrowableType throwableType;
     Stats stats;
     Transform sprite;
     bool shouldRotate;
     int pierceAmount;
 
-    public void ThrownConstructor(Stats stats, bool shouldRotate, Transform sprite)
+    public void ThrownConstructor(Stats stats, bool shouldRotate, Transform sprite, ThrowableType throwType)
     {
         this.stats = stats;
         this.shouldRotate = shouldRotate;
         this.sprite = sprite;
+        this.throwableType = throwType;
     }
     
     void Start() => pierceAmount = stats.pierceAmount;
@@ -26,6 +28,11 @@ public class ThrownObjectComponent : MonoBehaviour
         sprite.transform.Rotate(0f, 0f, stats.thrownRotationRate * Time.deltaTime);
     }
 
+    private ThrowableType GetThrowableType()
+    {
+        return throwableType;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
@@ -34,14 +41,36 @@ public class ThrownObjectComponent : MonoBehaviour
 
             if (enemyHealthComponent != null)
             {
-                enemyHealthComponent.Damage(stats.maxHealth);
+                switch (throwableType)
+                {
+                case ThrowableType.FIREBALL:
+                    GetComponent<Fireball>().SpawnExplosion();
 
-                pierceAmount -= 1;
+                    Destroy(gameObject);
+                    break;
+                case ThrowableType.ARROW:
+                    enemyHealthComponent.Damage(stats.damageAmount);
+                    
+                    pierceAmount -= 1;
 
-                if (pierceAmount > 0) { return; }
+                    if (pierceAmount > 0) { return; }
 
-                GetComponent<HealthComponent>().Die();
+                    Destroy(gameObject);
+                    break;
+                case ThrowableType.ENEMY:
+                    enemyHealthComponent.Damage(stats.maxHealth);
+
+                    pierceAmount -= 1;
+
+                    if (pierceAmount > 0) { return; }
+
+                    GetComponent<HealthComponent>().Die();
+                    break;
+                default:
+                    break;
+                }
             }
         }
+        
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   movementSpeed: 5
   damageAmount: 10
   pierceAmount: 1
-  thrownSpeed: 25
+  thrownSpeed: 30
   thrownRotationRate: 720
   heldRotationMultiplier: 0.25
   shouldRotate: 1

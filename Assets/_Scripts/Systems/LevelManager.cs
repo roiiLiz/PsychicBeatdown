@@ -5,7 +5,14 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader instance;
-    void Awake() => instance = this;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    } 
 
     public static event Action LevelRetry;
 

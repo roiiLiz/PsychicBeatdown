@@ -8,7 +8,7 @@ public class ThrowScript : MonoBehaviour
     [SerializeField] Transform enemyContainer;
     [SerializeField] float lerpRate = 2f;
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    [field: SerializeField] public int throwManaCost { get; private set; } = 25;
+    // [field: SerializeField] public int throwManaCost { get; private set; } = 25;
     // [SerializeField] float attackCooldown = 0.15f;
 
     public GameObject currentSelection { get; private set; } = null;
@@ -16,6 +16,7 @@ public class ThrowScript : MonoBehaviour
     public bool canAttack { get; private set; } = true;
 
     public static event Action<int> OnGrabObject;
+    public static event Action<GameObject> HeldObject;
 
     void OnEnable() { ThrowableComponent.OnThrowableSelected += SetCurrentSelection; }
     void OnDisable() { ThrowableComponent.OnThrowableSelected -= SetCurrentSelection; }
@@ -42,21 +43,16 @@ public class ThrowScript : MonoBehaviour
         heldObject.layer = LayerMask.NameToLayer("ThrownObjects");
         heldObject.transform.SetParent(null);
 
-        if (!heldObject.TryGetComponent<ThrownObjectComponent>(out ThrownObjectComponent thrownComponent))
+        if (!heldObject.TryGetComponent<ThrownObjectComponent> (out ThrownObjectComponent thrownComponent))
         {
             ThrowableComponent throwableComponent = heldObject.GetComponent<ThrowableComponent>();
 
-            heldObject.AddComponent<ThrownObjectComponent>();
-
-            heldObject.GetComponent<ThrownObjectComponent>().ThrownConstructor(throwableComponent.stats, throwableComponent.shouldRotate, throwableComponent.sprite);
+           heldObject.AddComponent<ThrownObjectComponent>();
+            heldObject.GetComponent<ThrownObjectComponent>().ThrownConstructor(throwableComponent.stats, throwableComponent.shouldRotate, throwableComponent.sprite, throwableComponent.throwType);
         }
 
-        // Enemy enemy = heldObject.GetComponent<Enemy>();
-        // if (enemy != null)
-        // {
-        //     enemy.ChangeState(EnemyState.THROWN);
-        // }
         heldObject = null;
+        HeldObject?.Invoke(null);
     }
 
     void SetHeldObject(GameObject currentSelection)
@@ -73,6 +69,8 @@ public class ThrowScript : MonoBehaviour
         heldObject.transform.parent = enemyContainer;
         StartCoroutine(LerpToDefault(heldObject, heldObject.transform.localPosition, Vector3.zero, lerpRate));
         StartCoroutine(RotateToDefault(heldObject, heldObject.transform.localRotation, heldObject.transform.parent.transform.localRotation, lerpRate));
+
+        HeldObject?.Invoke(heldObject);
     }
 
     IEnumerator RotateToDefault(GameObject thrownObject, Quaternion fromRot, Quaternion toRot, float duration)

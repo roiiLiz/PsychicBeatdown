@@ -5,11 +5,20 @@ using UnityEngine;
 
 public class ScreenShakeManager : MonoBehaviour
 {
-    [SerializeField] CinemachineImpulseSource screenShake;
+    public static ScreenShakeManager instance;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    public void CameraShake(CinemachineImpulseSource impulseSource)
+    {
+        impulseSource.GenerateImpulseWithVelocity(new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f));
     }
 }
+
+

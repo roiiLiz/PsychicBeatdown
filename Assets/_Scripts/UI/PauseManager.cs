@@ -11,7 +11,12 @@ public class PauseManager : MonoBehaviour
     public static bool isPaused = false;
 
     void OnEnable() => input.PauseEvent += TogglePause;
-    void OnDisable() => input.PauseEvent -= TogglePause;
+    void OnDisable()
+    {
+        input.PauseEvent -= TogglePause;
+        isPaused = false;
+        HandlePause(isPaused);
+    }
 
     void Start()
     {
@@ -24,7 +29,7 @@ public class PauseManager : MonoBehaviour
         HandlePause(isPaused);
     }
 
-    void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
         HandlePause(isPaused);

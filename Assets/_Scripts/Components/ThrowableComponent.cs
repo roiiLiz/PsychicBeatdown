@@ -2,11 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum ThrowableType
+{
+    FIREBALL,
+    ARROW,
+    ENEMY
+}
+
 public class ThrowableComponent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [field: SerializeField] public Stats stats { get; private set; }
     [field: SerializeField] public bool shouldRotate { get; private set; }
     [field: SerializeField] public Transform sprite { get; private set; }
+    [field: SerializeField] public ThrowableType throwType { get; private set; }
 
     public static event Action<MonoBehaviour> OnThrowableSelected;
 

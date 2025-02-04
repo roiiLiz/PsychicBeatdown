@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,8 +21,10 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Components")]
     [SerializeField] protected HealthComponent healthComponent;
     [SerializeField] protected MovementComponent movementComponent;
+    [SerializeField] protected CinemachineImpulseSource impulseSource;
     [Space]
     [Header("Sprite Variables")]
+    [SerializeField] protected Animator animator;
     [SerializeField] protected Transform sprite;
     [SerializeField] protected SpriteRenderer selectedSprite;
     [SerializeField] protected SpriteMask spriteMask;
@@ -33,9 +36,13 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     protected EnemyState currentState = EnemyState.IDLE;
 
     protected int _attackDamage;
-    // protected float _thrownSpeed;
 
 #region Initialization
+
+    void OnDisable()
+    {
+        ScreenShakeManager.instance.CameraShake(impulseSource);
+    }
 
     protected virtual void Start()
     {
@@ -79,16 +86,5 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         currentState = state;
     }
 
-    // protected virtual void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects"))
-    //     {
-    //         HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
-    //         if (thrownObjectHealth != null)
-    //         {
-    //             thrownObjectHealth.Damage(thrownObjectHealth.MaxHealth);
-    //             healthComponent.Damage(thrownObjectHealth.MaxHealth);
-    //         }
-    //     }
-    // }
+    
 }

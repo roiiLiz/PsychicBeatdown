@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] MovementComponent movementComponent;
     [SerializeField] ManaManager manaComponent;
     [SerializeField] ThrowScript throwComponent;
+    [SerializeField] Animator animator;
     [SerializeField] Transform pivot;
 
     Vector2 movementDirection;
@@ -36,13 +37,13 @@ public class Player : MonoBehaviour
     {
         if (!PauseManager.isPaused && throwComponent.canAttack)
         {
-            if (throwComponent.currentSelection != null)
-            {
-                if (manaComponent.CanAffordSpell(throwComponent.throwManaCost))
-                {
-                    manaComponent.SpendMana(throwComponent.throwManaCost);
-                }
-            } 
+            // if (throwComponent.currentSelection != null)
+            // {
+            //     if (manaComponent.CanAffordSpell(throwComponent.throwManaCost))
+            //     {
+            //         manaComponent.SpendMana(throwComponent.throwManaCost);
+            //     }
+            // } 
 
             throwComponent.HandleFireInput();
         }
@@ -54,7 +55,18 @@ public class Player : MonoBehaviour
         RotatePivot();
     }
 
-    void HandleMovement() => movementComponent.MoveTowards(movementDirection, gameObject);
+    void HandleMovement()
+    {
+        movementComponent.MoveTowards(movementDirection, gameObject);
+
+        if (movementDirection != Vector2.zero)
+        {
+            animator.Play("PlayerWalk");
+        } else
+        {
+            animator.Play("PlayerIdle");
+        }
+    }
 
     void RotatePivot()
     {
