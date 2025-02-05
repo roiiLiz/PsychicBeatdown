@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   movementSpeed: 3
-  damageAmount: 10
+  damageAmount: 1
   pierceAmount: 2
   thrownSpeed: 25
   thrownRotationRate: 720

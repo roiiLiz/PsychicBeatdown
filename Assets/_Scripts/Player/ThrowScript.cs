@@ -8,14 +8,12 @@ public class ThrowScript : MonoBehaviour
     [SerializeField] Transform enemyContainer;
     [SerializeField] float lerpRate = 2f;
     [SerializeField] AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    // [field: SerializeField] public int throwManaCost { get; private set; } = 25;
-    // [SerializeField] float attackCooldown = 0.15f;
+    [SerializeField] AudioClip grabSound, throwSound;
 
     public GameObject currentSelection { get; private set; } = null;
     public GameObject heldObject { get; private set; } = null;
     public bool canAttack { get; private set; } = true;
 
-    public static event Action<int> OnGrabObject;
     public static event Action<GameObject> HeldObject;
 
     void OnEnable() { ThrowableComponent.OnThrowableSelected += SetCurrentSelection; }
@@ -46,11 +44,18 @@ public class ThrowScript : MonoBehaviour
 
         if (!heldObject.TryGetComponent<ThrownObjectComponent> (out ThrownObjectComponent thrownComponent))
         {
+            // Object doesn't have a thrown object component, so add one
             ThrowableComponent throwableComponent = heldObject.GetComponent<ThrowableComponent>();
 
            heldObject.AddComponent<ThrownObjectComponent>();
             heldObject.GetComponent<ThrownObjectComponent>().ThrownConstructor(throwableComponent.stats, throwableComponent.shouldRotate, throwableComponent.sprite, throwableComponent.throwType);
+        } else
+        { 
+            // We can safely assume that our grabbed item has the component, and therefore can simply reenable it
+            heldObject.GetComponent<ThrownObjectComponent>().enabled = true;
         }
+
+        AudioManager.instance.PlaySFX(throwSound, transform, 1f);
 
         heldObject = null;
         HeldObject?.Invoke(null);
@@ -67,9 +72,16 @@ public class ThrowScript : MonoBehaviour
             enemy.ChangeState(EnemyState.HELD);
         }
 
+        if (heldObject.GetComponent<ThrownObjectComponent>() != null)
+        {
+            heldObject.GetComponent<ThrownObjectComponent>().enabled = false;
+        }
+
         heldObject.transform.parent = enemyContainer;
         StartCoroutine(LerpToDefault(heldObject, heldObject.transform.localPosition, Vector3.zero, lerpRate));
         StartCoroutine(RotateToDefault(heldObject, heldObject.transform.localRotation, heldObject.transform.parent.transform.localRotation, lerpRate));
+
+        AudioManager.instance.PlaySFX(grabSound, transform, 1f);
 
         HeldObject?.Invoke(heldObject);
     }

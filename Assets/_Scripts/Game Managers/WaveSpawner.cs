@@ -11,7 +11,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] float timeBetweenSpawns = 0.15f;
     [SerializeField] float waveRadius = 10f;
 
-    public static event Action<Wave> CurrentWaveInfo; 
+    public static event Action<int> WaveAmount; 
 
     public int uniqueWaveCount { get; private set; }
 
@@ -20,25 +20,24 @@ public class WaveSpawner : MonoBehaviour
         uniqueWaveCount = waves.Count;
     }
 
-#region Init
-
-    // void OnEnable() => WaveManager.RequestNextWave += BeginWaveCooldown;
-    // void OnDisable() => WaveManager.RequestNextWave -= BeginWaveCooldown;
-
-#endregion
-
 #region Spawning Logic
 
-    public IEnumerator SpawnWave(int waveNumber)
+    public IEnumerator SpawnWave(int waveNumber, int loopNumber)
     {
         if (waveNumber > waves.Count - 1)
         {
             waveNumber = waveNumber % waves.Count;
         }
 
-        CurrentWaveInfo?.Invoke(waves[waveNumber]);
+        int modifiedWaveAmount = waves[waveNumber].waveAmount;
+        if (loopNumber > 0)
+        {
+            modifiedWaveAmount *= Mathf.RoundToInt(loopNumber * waves[waveNumber].loopMultiplier);
+        }
 
-        for (int i = 0; i < waves[waveNumber].waveAmount; i++)
+        WaveAmount?.Invoke(modifiedWaveAmount);
+
+        for (int i = 0; i < modifiedWaveAmount; i++)
         {
             ChooseWeightedEnemy(waveNumber);
             yield return new WaitForSeconds(timeBetweenSpawns);

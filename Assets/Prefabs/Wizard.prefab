@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4399098197379276275}
   - component: {fileID: 9103631797217813597}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2914722615773357239}
   - component: {fileID: 8304826281642747673}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 5893180252918547960}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0569469, y: 0.58402073, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f5bbd335769df45873b8331b172dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   deathComponent: {fileID: 11400000, guid: d40f3e974536465448067bf003110793, type: 2}
   hurtSound: {fileID: 8300000, guid: 995340f32e1fa8c46838fe2e1ef533c0, type: 3}
   hurtSoundVolume: 1
@@ -515,6 +516,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1110041021997185212, guid: d7c0fd09f45ff8e40bfc48fa43cdabc2, type: 3}
   pivot: {fileID: 991019228676265244}
   firingPoint: {fileID: 912833134868427724}
+  attackSound: {fileID: 8300000, guid: 2555f761833ccdc478ceea43b6035a59, type: 3}
 --- !u!114 &3145421963343939572
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,4 +34,13 @@ public class Fireball : MonoBehaviour
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && !isSelected)
+        {
+            SpawnExplosion();
+            Destroy(gameObject);
+        }
+    }
 }

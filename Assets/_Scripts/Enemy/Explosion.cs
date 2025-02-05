@@ -57,10 +57,13 @@ public class Explosion : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies") || collision.gameObject.tag == "Player")
         {
             HealthComponent healthComponent = collision.GetComponent<HealthComponent>();
-            healthComponent.Damage(damageAmount);
+            if (healthComponent != null)
+            {
+                healthComponent.Damage(damageAmount);
+            }
         }
     }
 

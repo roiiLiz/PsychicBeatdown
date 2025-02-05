@@ -24,7 +24,7 @@ public class TextWobble : MonoBehaviour
     [SerializeField]
     private float xWobbleFactor = 2.0f;
     [SerializeField]
-    private float yWobbleFactor = 2.0f;
+    private float yWobbleFactor = 3.0f;
 
     TMP_Text textMesh => GetComponent<TMP_Text>();
     Mesh mesh;
@@ -55,7 +55,7 @@ public class TextWobble : MonoBehaviour
 
         Color[] colors = mesh.colors;
 
-        float wobbleInput = randomShake ? Random.Range(0f, randomShakeMaximum) : Time.time;
+        float wobbleInput = randomShake ? Random.Range(0f, randomShakeMaximum) : Time.unscaledTime;
 
         switch (wobbleStyle)
         {

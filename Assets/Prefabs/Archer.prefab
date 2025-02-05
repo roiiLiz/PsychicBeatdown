@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4399098197379276275}
   - component: {fileID: 9103631797217813597}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2914722615773357239}
   - component: {fileID: 8304826281642747673}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900939877793682799}
-  - component: {fileID: 7492209857909418868}
+  - component: {fileID: 5477520969255698272}
   - component: {fileID: 7411619229258172720}
   - component: {fileID: 3653594261560006789}
   - component: {fileID: 2381493352443753784}
@@ -343,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 5893180252918547960}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0569469, y: 0.58402073, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -354,7 +354,7 @@ Transform:
   - {fileID: 4399098197379276275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7492209857909418868
+--- !u!114 &5477520969255698272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5893180252918547960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99ce6562fc96aea448cbf574e3abe688, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cbd4ca8e8f8f4a41ae3c23057c64570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <stats>k__BackingField: {fileID: 11400000, guid: 01ee7422e7168e34f82e30121f5fb2d6, type: 2}
@@ -375,6 +375,8 @@ MonoBehaviour:
   sprite: {fileID: 5689551439244042714}
   thrownSpinRate: 720
   heldSpinMultiplier: 0.25
+  rangedAttackerComponent: {fileID: 5550298512545201612}
+  movementPenaltyMultiplier: 2
 --- !u!114 &7411619229258172720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f5bbd335769df45873b8331b172dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
   deathComponent: {fileID: 11400000, guid: d40f3e974536465448067bf003110793, type: 2}
   hurtSound: {fileID: 8300000, guid: 995340f32e1fa8c46838fe2e1ef533c0, type: 3}
   hurtSoundVolume: 1
@@ -451,6 +454,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1110041021997185212, guid: 40d0fd5015ce69a49baf68ab06359d61, type: 3}
   pivot: {fileID: 6180917130946301219}
   firingPoint: {fileID: 4258169988433906206}
+  attackSound: {fileID: 8300000, guid: 2229e4f9375a2564abfe26fad80fc729, type: 3}
 --- !u!50 &1473718318041280228
 Rigidbody2D:
   serializedVersion: 4

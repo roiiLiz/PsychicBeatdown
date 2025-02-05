@@ -14,8 +14,6 @@ public class LevelLoader : MonoBehaviour
         }
     } 
 
-    public static event Action LevelRetry;
-
     public void LoadLevel(string levelName)
     {
         AudioSettings.instance.SaveSettings();
@@ -34,7 +32,5 @@ public class LevelLoader : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
-
-        LevelRetry?.Invoke();
     }
 }

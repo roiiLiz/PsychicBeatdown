@@ -106,4 +106,17 @@ public class InputReader : ScriptableObject
             PauseEvent?.Invoke();
         }
     }
+
+    // public void ChangeInputType(bool navigationOnly)
+    // {
+    //     if (navigationOnly)
+    //     {
+    //         inputAsset.FindActionMap("Player").Disable();
+    //         inputAsset.FindActionMap("UI").Enable();
+    //     } else
+    //     {
+    //         inputAsset.FindActionMap("Player").Enable();
+    //         inputAsset.FindActionMap("UI").Disable();
+    //     }
+    // }
 }

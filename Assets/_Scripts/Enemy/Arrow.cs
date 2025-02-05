@@ -28,4 +28,13 @@ public class Arrow : MonoBehaviour
             transform.Translate(Vector2.right * Time.deltaTime * arrowSpeed);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && !isSelected)
+        {
+            other.GetComponent<HealthComponent>().Damage(GetComponent<ThrowableComponent>().stats.damageAmount);
+            Destroy(gameObject);
+        }
+    }
 }

@@ -1,13 +1,14 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
+    [SerializeField] int maxHealth;
     [SerializeField] DeathComponent deathComponent;
     [SerializeField] AudioClip hurtSound;
     [SerializeField, Range(0, 1f)] float hurtSoundVolume = 0.1f;
 
-    int maxHealth;
     int currentHealth;
 
     public int MaxHealth { get { return maxHealth; } set { SetHealth(value); } }
@@ -32,6 +33,13 @@ public class HealthComponent : MonoBehaviour
         OnDamageTaken?.Invoke(incomingDamage, this);
 
         AudioManager.instance.PlaySFX(hurtSound, transform, hurtSoundVolume);
+
+        CinemachineImpulseSource screenShake = GetComponent<CinemachineImpulseSource>();
+
+        if (screenShake != null && gameObject.CompareTag("Player"))
+        {
+            ScreenShakeManager.instance.CameraShake(screenShake);
+        }
 
         if (currentHealth <= 0)
         {

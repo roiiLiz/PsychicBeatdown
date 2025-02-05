@@ -10,6 +10,7 @@ public class RangedAttackerComponent : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform pivot;
     [SerializeField] Transform firingPoint;
+    [SerializeField] AudioClip attackSound;
 
     public bool isInRange { get; private set; } = false;
 
@@ -54,6 +55,8 @@ public class RangedAttackerComponent : MonoBehaviour
             var projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
             // turn off attack
             allowAttack = false;
+            // play sound
+            AudioManager.instance.PlaySFX(attackSound, transform, 1f);
             // cooldown
             StartCoroutine(BeginCooldown(attackRate));
         }

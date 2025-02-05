@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8081493720188248697}
   - component: {fileID: 3945534836953510117}
   - component: {fileID: 4340855228017980700}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,8 +68,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireballSpeed: 5
   explosionPrefab: {fileID: 4460623589098491696, guid: a93c2f3d51774fe488b3313579aa146d, type: 3}
-  selectionSprite: {fileID: 515487407718646759}
-  spriteMask: {fileID: 4920921021058329422}
 --- !u!114 &8081493720188248697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3435981076550044824}
   - component: {fileID: 515487407718646759}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8139325918734392014}
   - component: {fileID: 4920921021058329422}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8805982494095167805}
   - component: {fileID: 5318611554686114606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +385,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: edf8231ad471e4e49a78148c264a4ab2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField] InputReader input;
     [Header("Components")]
     [SerializeField] MovementComponent movementComponent;
-    [SerializeField] ManaManager manaComponent;
     [SerializeField] ThrowScript throwComponent;
     [SerializeField] Animator animator;
     [SerializeField] Transform pivot;
@@ -43,14 +42,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
         RotatePivot();
+        HandleMovement();
     }
 
     void HandleMovement()
     {
         movementComponent.MoveTowards(movementDirection, gameObject);
-
+       
         if (movementDirection != Vector2.zero)
         {
             animator.Play("PlayerWalk");

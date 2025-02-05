@@ -3,13 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 // Responsible for starting and stopping waves, as well as cooldowns between waves
-
-// public enum WaveState
-// {
-//     IN_PROGRESS,
-//     SPAWNING,
-//     COOLDOWN
-// }
+// Also responsible for keeping track of loops
 
 public class WaveManager : MonoBehaviour
 {
@@ -23,26 +17,27 @@ public class WaveManager : MonoBehaviour
     bool allowWaveSpawns = true;
 
     public static event Action<int> CurrentWaveCount;
-    public static event Action<float, int> RequestNextWave;
     public static event Action<int> UpdateWaveCountdown;
     public static event Action<int> CurrentWaveNumber;
+    public static event Action<int> UpdateLoopCount;
 
     void OnEnable()
     {
-        WaveSpawner.CurrentWaveInfo += InitWaveInfo;
+        WaveSpawner.WaveAmount += InitWaveInfo;
         EnemyDeathComponent.OnEnemyDeath += UpdateEnemyCount;
     }
 
     void OnDisable()
     {
-        WaveSpawner.CurrentWaveInfo += InitWaveInfo;
-        EnemyDeathComponent.OnEnemyDeath += UpdateEnemyCount;
+        WaveSpawner.WaveAmount -= InitWaveInfo;
+        EnemyDeathComponent.OnEnemyDeath -= UpdateEnemyCount;
     }
 
     void Start()
     {
-        StartCoroutine(spawner.SpawnWave(currentWave));
+        StartCoroutine(spawner.SpawnWave(currentWave, loopCount));
         CurrentWaveNumber?.Invoke(currentWave + 1);
+        UpdateLoopCount?.Invoke(loopCount);
     }
 
     void UpdateEnemyCount()
@@ -65,14 +60,13 @@ public class WaveManager : MonoBehaviour
         if (currentWave % spawner.uniqueWaveCount == 0)
         {
             loopCount += 1;
+            UpdateLoopCount?.Invoke(loopCount);
         }
-
-        
     }
 
-    void InitWaveInfo(Wave wave)
+    void InitWaveInfo(int waveAmount)
     {
-        currentEnemyCount = wave.waveAmount;
+        currentEnemyCount = waveAmount;
     }
 
     IEnumerator SpawnNextWave(float cooldownDuration, int waveToSpawn)
@@ -87,7 +81,7 @@ public class WaveManager : MonoBehaviour
             UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(currentCountDownValue));
         }
 
-        StartCoroutine(spawner.SpawnWave(waveToSpawn));
+        StartCoroutine(spawner.SpawnWave(waveToSpawn, loopCount));
 
         CurrentWaveNumber?.Invoke(waveToSpawn + 1);
         allowWaveSpawns = true;
