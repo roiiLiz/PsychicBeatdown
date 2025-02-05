@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.44970137, b: 0.33490568, a: 1}
   m_FlipX: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   damageAmount: 1
   expansionRate: 0.5
   explosionLingerDuration: 1
+  destructionSpeedMultiplier: 2
   maxExplosionScale: {x: 7.5, y: 7.5, z: 1}
   easingCurve:
     serializedVersion: 2
@@ -127,6 +128,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  explosionAudio: {fileID: 8300000, guid: e542f8c5d45177242a660020c832f690, type: 3}
 --- !u!58 &4416776084308833355
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -9,10 +9,10 @@ public enum EnemyState
     WALKING,
     ATTACKING,
     HELD,
-    THROWN
+    // THROWN
 }
 
-public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public abstract class Enemy : MonoBehaviour
 {
     [field: SerializeField] public Stats stats { get; private set; }
     [Header("Stats")]
@@ -26,8 +26,8 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Sprite Variables")]
     [SerializeField] protected Animator animator;
     [SerializeField] protected Transform sprite;
-    [SerializeField] protected SpriteRenderer selectedSprite;
-    [SerializeField] protected SpriteMask spriteMask;
+    // [SerializeField] protected SpriteRenderer selectedSprite;
+    // [SerializeField] protected SpriteMask spriteMask;
     [SerializeField] protected float thrownSpinRate = 360f;
     [SerializeField] protected float heldSpinMultiplier = .25f;
 
@@ -47,15 +47,15 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     protected virtual void Start()
     {
         InitStats(stats);
-        InitSprite();
+        // InitSprite();
         currentState = startingState;
     }
 
-    protected virtual void InitSprite()
-    {
-        selectedSprite.enabled = false;
-        spriteMask.enabled = false;
-    }
+    // protected virtual void InitSprite()
+    // {
+    //     selectedSprite.enabled = false;
+    //     spriteMask.enabled = false;
+    // }
 
     protected virtual void InitStats(Stats stats)
     {
@@ -69,22 +69,20 @@ public abstract class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 #endregion
 
-    public virtual void OnPointerEnter(PointerEventData eventData)
-    {
-        selectedSprite.enabled = true;
-        spriteMask.enabled = true;
-    }
+    // public virtual void OnPointerEnter(PointerEventData eventData)
+    // {
+    //     selectedSprite.enabled = true;
+    //     spriteMask.enabled = true;
+    // }
 
-    public virtual void OnPointerExit(PointerEventData eventData)
-    {
-        selectedSprite.enabled = false;
-        spriteMask.enabled = false;
-    }
+    // public virtual void OnPointerExit(PointerEventData eventData)
+    // {
+    //     selectedSprite.enabled = false;
+    //     spriteMask.enabled = false;
+    // }
 
     public void ChangeState(EnemyState state)
     {
         currentState = state;
     }
-
-    
 }

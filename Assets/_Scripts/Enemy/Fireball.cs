@@ -1,16 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Fireball : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Fireball : MonoBehaviour
 {
     [SerializeField] float fireballSpeed;
     [SerializeField] GameObject explosionPrefab;
-    [SerializeField] SpriteRenderer selectionSprite;
-    [SerializeField] SpriteMask spriteMask;
 
     bool isSelected = false;
 
@@ -40,17 +33,5 @@ public class Fireball : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void SpawnExplosion()
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        selectionSprite.enabled = true;
-        spriteMask.enabled = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        selectionSprite.enabled = false;
-        spriteMask.enabled = false;
     }
 }

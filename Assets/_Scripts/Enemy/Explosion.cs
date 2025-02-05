@@ -11,6 +11,7 @@ public class Explosion : MonoBehaviour
     [SerializeField] float destructionSpeedMultiplier = 2f;
     [SerializeField] Vector3 maxExplosionScale = new Vector3(2f, 2f, 1f);
     [SerializeField] AnimationCurve easingCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    [SerializeField] AudioClip explosionAudio;
     Vector3 defaultScale;
 
     void Awake()
@@ -22,6 +23,7 @@ public class Explosion : MonoBehaviour
     {
         StartCoroutine(LerpScale(defaultScale, maxExplosionScale, false));
         ScreenShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
+        AudioManager.instance.PlaySFX(explosionAudio, transform, 1f);
     }
 
     IEnumerator LerpScale(Vector3 from, Vector3 to, bool doubleSpeed)

@@ -13,6 +13,13 @@ public class WaveSpawner : MonoBehaviour
 
     public static event Action<Wave> CurrentWaveInfo; 
 
+    public int uniqueWaveCount { get; private set; }
+
+    void Start()
+    {
+        uniqueWaveCount = waves.Count;
+    }
+
 #region Init
 
     // void OnEnable() => WaveManager.RequestNextWave += BeginWaveCooldown;
@@ -24,6 +31,11 @@ public class WaveSpawner : MonoBehaviour
 
     public IEnumerator SpawnWave(int waveNumber)
     {
+        if (waveNumber > waves.Count - 1)
+        {
+            waveNumber = waveNumber % waves.Count;
+        }
+
         CurrentWaveInfo?.Invoke(waves[waveNumber]);
 
         for (int i = 0; i < waves[waveNumber].waveAmount; i++)

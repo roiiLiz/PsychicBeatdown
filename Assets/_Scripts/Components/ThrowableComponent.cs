@@ -16,7 +16,29 @@ public class ThrowableComponent : MonoBehaviour, IPointerEnterHandler, IPointerE
     [field: SerializeField] public Transform sprite { get; private set; }
     [field: SerializeField] public ThrowableType throwType { get; private set; }
 
+    public bool isHeld { get; private set; } = false;
+
     public static event Action<MonoBehaviour> OnThrowableSelected;
+
+    void OnEnable() => ThrowScript.HeldObject += IsCurrentlyHeld;
+    void OnDisable() => ThrowScript.HeldObject -= IsCurrentlyHeld;
+
+    void IsCurrentlyHeld(GameObject heldObject)
+    {
+        if (heldObject != null)
+        {
+            if (heldObject == gameObject)
+            {
+                isHeld = true;
+            } else
+            {
+                isHeld = false;
+            }
+        } else
+        {
+            isHeld = false;
+        }
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

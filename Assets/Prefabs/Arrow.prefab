@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6258587040301079822}
+  - component: {fileID: 1144015848142357547}
   - component: {fileID: 8081493720188248697}
   - component: {fileID: 3945534836953510117}
   - component: {fileID: 4340855228017980700}
+  - component: {fileID: 7641019396153465786}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -37,6 +39,21 @@ Transform:
   - {fileID: 8139325918734392014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144015848142357547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110041021997185212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ef2d6fcfd1f1946908fa2d453eb656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionSprite: {fileID: 515487407718646759}
+  mask: {fileID: 4920921021058329422}
+  throwableComponent: {fileID: 8081493720188248697}
 --- !u!114 &8081493720188248697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d789e9224c25d44eaf9c2e3d08cc948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <stats>k__BackingField: {fileID: 11400000, guid: 13953d0b78c7eed45ab4595d501c542a, type: 2}
+  <stats>k__BackingField: {fileID: 11400000, guid: 6195863112bba194a9ebcae349c23928, type: 2}
   <shouldRotate>k__BackingField: 1
   <sprite>k__BackingField: {fileID: 8805982494095167805}
   <throwType>k__BackingField: 1
@@ -115,6 +132,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!114 &7641019396153465786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110041021997185212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc8186002f45c99458d4c9fd65434bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowSpeed: 7.5
+  selectionSprite: {fileID: 515487407718646759}
+  spriteMask: {fileID: 4920921021058329422}
 --- !u!1 &1312502278118950063
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ public class ThrowScript : MonoBehaviour
         if (heldObject != null)
         {
             ThrowCurrentObject();
+            return;
         }
 
         if (currentSelection != null && heldObject == null)

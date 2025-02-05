@@ -4,6 +4,8 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] DeathComponent deathComponent;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField, Range(0, 1f)] float hurtSoundVolume = 0.1f;
 
     int maxHealth;
     int currentHealth;
@@ -28,6 +30,8 @@ public class HealthComponent : MonoBehaviour
     {
         currentHealth -= incomingDamage;
         OnDamageTaken?.Invoke(incomingDamage, this);
+
+        AudioManager.instance.PlaySFX(hurtSound, transform, hurtSoundVolume);
 
         if (currentHealth <= 0)
         {

@@ -7,6 +7,8 @@ public class PauseManager : MonoBehaviour
 {
     [SerializeField] InputReader input;
     [SerializeField] CanvasGroup pauseCanvas;
+    [SerializeField] GameObject initialPauseScreen;
+    [SerializeField] GameObject pauseUI;
 
     public static bool isPaused = false;
 
@@ -41,5 +43,15 @@ public class PauseManager : MonoBehaviour
         pauseCanvas.alpha = isPaused ? 1.0f : 0.0f;
         pauseCanvas.interactable = isPaused ? true : false;
         pauseCanvas.blocksRaycasts = isPaused ? true : false;
+        initialPauseScreen.SetActive(isPaused);
+
+        if (!isPaused)
+        {
+            foreach (Transform child in pauseUI.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
     }
 }

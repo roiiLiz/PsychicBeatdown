@@ -11,7 +11,7 @@ public class Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     Vector3 defaultScale;
 
-    void Start()
+    void Awake()
     {
         defaultScale = transform.localScale;
         textWobble.enabled = false;

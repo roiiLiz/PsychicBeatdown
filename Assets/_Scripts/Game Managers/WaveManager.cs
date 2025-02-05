@@ -18,11 +18,14 @@ public class WaveManager : MonoBehaviour
 
     int currentEnemyCount = 0;
     int currentWave = 0;
+    int loopCount = 0;
     float currentCountDownValue;
+    bool allowWaveSpawns = true;
 
     public static event Action<int> CurrentWaveCount;
     public static event Action<float, int> RequestNextWave;
     public static event Action<int> UpdateWaveCountdown;
+    public static event Action<int> CurrentWaveNumber;
 
     void OnEnable()
     {
@@ -39,6 +42,7 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(spawner.SpawnWave(currentWave));
+        CurrentWaveNumber?.Invoke(currentWave + 1);
     }
 
     void UpdateEnemyCount()
@@ -46,12 +50,24 @@ public class WaveManager : MonoBehaviour
         currentEnemyCount--;
         CurrentWaveCount?.Invoke(currentEnemyCount);
 
-        if (currentEnemyCount <= 0)
+        if (currentEnemyCount <= 0 && allowWaveSpawns)
         {
+            allowWaveSpawns = false;
             // Debug.Log($"Spawning wave {currentWave++}");
             currentWave += 1;
+            CheckForLoop(currentWave);
             StartCoroutine(SpawnNextWave(waveCooldown, currentWave));
         }
+    }
+
+    void CheckForLoop(int currentWave)
+    {
+        if (currentWave % spawner.uniqueWaveCount == 0)
+        {
+            loopCount += 1;
+        }
+
+        
     }
 
     void InitWaveInfo(Wave wave)
@@ -72,6 +88,9 @@ public class WaveManager : MonoBehaviour
         }
 
         StartCoroutine(spawner.SpawnWave(waveToSpawn));
+
+        CurrentWaveNumber?.Invoke(waveToSpawn + 1);
+        allowWaveSpawns = true;
     }
 }
 

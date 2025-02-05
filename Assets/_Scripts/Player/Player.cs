@@ -37,14 +37,6 @@ public class Player : MonoBehaviour
     {
         if (!PauseManager.isPaused && throwComponent.canAttack)
         {
-            // if (throwComponent.currentSelection != null)
-            // {
-            //     if (manaComponent.CanAffordSpell(throwComponent.throwManaCost))
-            //     {
-            //         manaComponent.SpendMana(throwComponent.throwManaCost);
-            //     }
-            // } 
-
             throwComponent.HandleFireInput();
         }
     }

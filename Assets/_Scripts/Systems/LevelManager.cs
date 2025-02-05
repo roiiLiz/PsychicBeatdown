@@ -18,11 +18,14 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string levelName)
     {
+        AudioSettings.instance.SaveSettings();
         SceneManager.LoadScene(levelName);
+        AudioSettings.instance.LoadSettings();
     }
 
     public void QuitGame()
     {
+        AudioSettings.instance.SaveSettings();
         Debug.Log("Exiting game");
         Application.Quit();
     }
