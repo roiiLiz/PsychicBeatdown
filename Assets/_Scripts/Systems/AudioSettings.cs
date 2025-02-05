@@ -20,15 +20,15 @@ public class AudioSettings : MonoBehaviour
         }
     }
 
-    void OnEnable() => LoadSettings();
+    void Start() => LoadSettings();
 
     public void LoadSettings()
     {
-        masterVolume = PlayerPrefs.GetFloat("MasterVolume");
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
+        masterVolume = PlayerPrefs.GetFloat("MasterVolume", defaultValue);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", defaultValue);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", defaultValue);
 
-        Debug.Log($"Loading Settings- \n Master Volume: {masterVolume} \n Music Volume: {musicVolume} \n SFX Volume: {sfxVolume}");
+        // Debug.Log($"Loading Settings- \n Master Volume: {masterVolume} \n Music Volume: {musicVolume} \n SFX Volume: {sfxVolume}");
     }
 
     public void SaveSettings()
@@ -39,6 +39,6 @@ public class AudioSettings : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        Debug.Log($"Saving Settings- \n Master Volume: {masterVolume} \n Music Volume: {musicVolume} \n SFX Volume: {sfxVolume}");
+        // Debug.Log($"Saving Settings- \n Master Volume: {masterVolume} \n Music Volume: {musicVolume} \n SFX Volume: {sfxVolume}");
     }
 }
