@@ -176,7 +176,7 @@ public class ComboManager : MonoBehaviour
     {
         totalComboScore = Mathf.RoundToInt(comboScore * comboMultiplier);
 
-        ComboScore?.Invoke(totalComboScore);
+        ComboScore?.Invoke(totalComboScore - comboScore);
     }
 
 }

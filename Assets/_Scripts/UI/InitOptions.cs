@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InitOptions : MonoBehaviour
+public class InitSettings : MonoBehaviour
 {
     [SerializeField] VolumeSettings[] volumeSettings;
 

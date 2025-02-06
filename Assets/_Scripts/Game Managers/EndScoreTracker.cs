@@ -6,17 +6,14 @@ using UnityEngine;
 
 public class EndScoreTracker : MonoBehaviour
 {
-    [Header("Object References")]
     [SerializeField] TextMeshProUGUI endScoreText, playScoreText, loopText;
-    [Header("Animation Variables")]
-    [SerializeField] AnimationCurve lerpCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-    [SerializeField] float lerpRate = 0.5f;
+    [SerializeField] GameObject highScoreText;
 
     int currentScore;
-    int displayScore;
 
     void OnEnable()
     {
+        PlayerDeathComponent.OnPlayerDeath += SavePlayerScore;
         EnemyDeathComponent.OnEnemyDeath += IncrementScore;
         WaveManager.UpdateLoopCount += UpdateLoopText;
         ComboManager.ComboScore += AddComboScore;
@@ -24,42 +21,30 @@ public class EndScoreTracker : MonoBehaviour
 
     void OnDisable()
     {
+        PlayerDeathComponent.OnPlayerDeath -= SavePlayerScore;
         EnemyDeathComponent.OnEnemyDeath -= IncrementScore;
-        WaveManager.UpdateLoopCount += UpdateLoopText;
-        ComboManager.ComboScore += AddComboScore;
+        WaveManager.UpdateLoopCount -= UpdateLoopText;
+        ComboManager.ComboScore -= AddComboScore;
     }
 
-    void IncrementScore() => currentScore++;
-    void AddComboScore(int incomingScore) => currentScore += incomingScore;
+    void IncrementScore()
+    {
+        currentScore++;
+        UpdateScoreText();
+    }
+
+    void AddComboScore(int incomingScore)
+    {
+        currentScore += incomingScore;
+        UpdateScoreText();
+    }
 
     void Start()
     {
         currentScore = 0;
-        displayScore = 0;
-
-        StartCoroutine(UpdateScore());
 
         UpdateScoreText();
         UpdateLoopText(0);
-    }
-
-    IEnumerator UpdateScore()
-    {
-        while (true)
-        {
-            if (displayScore < currentScore)
-            {
-                float t = 0f;
-                float rate = 1f / lerpRate;
-
-                while (t < 1f)
-                {
-                    t += Time.deltaTime * rate;
-                    displayScore = (int) Mathf.Lerp(displayScore, currentScore, lerpCurve.Evaluate(t));
-                    playScoreText.text = $"{currentScore}";
-                }
-            }
-        }
     }
 
     void UpdateLoopText(int loopCount)
@@ -73,5 +58,21 @@ public class EndScoreTracker : MonoBehaviour
         }
     }
 
-    void UpdateScoreText() => endScoreText.text = $"You earned {currentScore} points!";
+    void UpdateScoreText()
+    {
+        playScoreText.text = $"{currentScore}";
+        endScoreText.text = $"You earned {currentScore} points!";
+    }
+
+    void SavePlayerScore()
+    {
+        if (PlayerPrefs.GetInt("HighScore", 0) < currentScore)
+        {
+            highScoreText.SetActive(true);
+            PlayerPrefs.SetInt("HighScore", currentScore);
+        } else
+        {
+            highScoreText.SetActive(false);
+        }
+    }
 }

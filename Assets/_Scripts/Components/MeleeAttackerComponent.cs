@@ -102,7 +102,7 @@ public class MeleeAttackerComponent : MonoBehaviour
 
         while (t < 1f)
         {
-            Debug.Log("Wind Up");
+            // Debug.Log("Wind Up");
             t += Time.deltaTime * rate;
             float windUpRot = Mathf.Lerp(weaponPivot.transform.rotation.z, windUpPosition.z * -weaponPivot.localScale.x, windUpCurve.Evaluate(t));
             weaponPivot.transform.rotation = Quaternion.Euler(0f, 0f, windUpRot);
@@ -115,7 +115,7 @@ public class MeleeAttackerComponent : MonoBehaviour
 
         while (w < 1f)
         {
-            Debug.Log("Attacking");
+            // Debug.Log("Attacking");
             w += Time.deltaTime * rate;
             float attackRot = Mathf.Lerp(windUpPosition.z * -weaponPivot.localScale.x, attackPosition.z * -weaponPivot.localScale.x, swingCurve.Evaluate(w));
             weaponPivot.transform.rotation = Quaternion.Euler(0f, 0f, attackRot);
@@ -138,7 +138,7 @@ public class MeleeAttackerComponent : MonoBehaviour
 
         while (r < cooldown)
         {
-            Debug.Log("Reseting");
+            // Debug.Log("Reseting");
             r += Time.deltaTime * rate;
             float resetRot = Mathf.Lerp(attackPosition.z * -weaponPivot.localScale.x, defaultPosition.z * -weaponPivot.localScale.x, resetCurve.Evaluate(r));
             weaponPivot.transform.rotation = Quaternion.Euler(0f, 0f, resetRot);

@@ -41,30 +41,41 @@ public class ThrownObjectComponent : MonoBehaviour
 
             if (enemyHealthComponent != null)
             {
+                pierceAmount--;
+                
                 switch (throwableType)
                 {
                 case ThrowableType.FIREBALL:
-                    GetComponent<Fireball>().SpawnExplosion();
+                    if (pierceAmount >= 0)
+                    {
+                        GetComponent<Fireball>().SpawnExplosion();
+                        Destroy(gameObject);
+                    } else
+                    {
+                        Destroy(gameObject);
+                    }
 
-                    Destroy(gameObject);
                     break;
                 case ThrowableType.ARROW:
-                    enemyHealthComponent.Damage(stats.damageAmount);
+                    if (pierceAmount >= 0)
+                    {
+                        enemyHealthComponent.Damage(stats.damageAmount);
+                    } else
+                    {
+                        Destroy(gameObject);
+                    }
                     
-                    pierceAmount -= 1;
-
-                    if (pierceAmount > 0) { return; }
-
-                    Destroy(gameObject);
                     break;
                 case ThrowableType.ENEMY:
-                    enemyHealthComponent.Damage(stats.maxHealth);
+                    if (pierceAmount >= 0)
+                    {
+                        enemyHealthComponent.Damage(stats.maxHealth);
+                        GetComponent<HealthComponent>().Die();
+                    } else
+                    {
+                        Destroy(gameObject);
+                    }
 
-                    pierceAmount -= 1;
-
-                    if (pierceAmount > 0) { return; }
-
-                    GetComponent<HealthComponent>().Die();
                     break;
                 default:
                     break;
