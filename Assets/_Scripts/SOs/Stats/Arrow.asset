@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b079c017a2516409975e5cd6a253f1, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 0
   movementSpeed: 5
   damageAmount: 1
-  pierceAmount: 3
+  pierceAmount: 2
   thrownSpeed: 40
   thrownRotationRate: 0
   heldRotationMultiplier: 0

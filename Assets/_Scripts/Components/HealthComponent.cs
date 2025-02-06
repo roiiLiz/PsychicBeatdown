@@ -16,15 +16,16 @@ public class HealthComponent : MonoBehaviour
 
     // Used to create damage numbers in world at the location of damage taken.
     public static event Action<int, MonoBehaviour> OnDamageTaken;
+    public static event Action<int, MonoBehaviour> OnHeal;
 
-    void Start()
-    {
-        currentHealth = maxHealth;
-    }
+    void Start() => currentHealth = maxHealth;
 
-    public void SetHealth(int incomingHealth)
+    public void SetHealth(int incomingHealth) => maxHealth = incomingHealth;
+
+    public void AddHealth(int incomingHealth)
     {
-        maxHealth = incomingHealth;
+        currentHealth = Mathf.Clamp(currentHealth + incomingHealth, 0, maxHealth);
+        OnHeal?.Invoke(currentHealth, this);
     }
 
     public void Damage(int incomingDamage)
@@ -38,7 +39,7 @@ public class HealthComponent : MonoBehaviour
 
         if (screenShake != null && gameObject.CompareTag("Player"))
         {
-            ScreenShakeManager.instance.CameraShake(screenShake);
+            ScreenShakeManager.instance.CameraShake(screenShake, incomingDamage);
         }
 
         if (currentHealth <= 0)
@@ -47,21 +48,5 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
-    public void Die()
-    {
-        deathComponent?.Die(this);
-    }
-
-    // void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.gameObject.layer == LayerMask.NameToLayer("ThrownObjects"))
-    //     {
-    //         HealthComponent thrownObjectHealth = collision.GetComponent<HealthComponent>();
-    //         if (thrownObjectHealth != null)
-    //         {
-    //             thrownObjectHealth.Damage(thrownObjectHealth.MaxHealth);
-    //             Damage(thrownObjectHealth.MaxHealth);
-    //         }
-    //     }
-    // }
+    public void Die() => deathComponent?.Die(this);
 }

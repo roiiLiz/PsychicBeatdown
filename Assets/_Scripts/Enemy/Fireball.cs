@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
-    [SerializeField] float fireballSpeed;
+    [SerializeField] Stats stats;
     [SerializeField] GameObject explosionPrefab;
 
     bool isSelected = false;
@@ -26,13 +26,14 @@ public class Fireball : MonoBehaviour
     {
         if (!isSelected)
         {
-            transform.Translate(Vector2.right * Time.deltaTime * fireballSpeed);
+            transform.Translate(Vector2.right * Time.deltaTime * stats.movementSpeed);
         }
     }
 
     public void SpawnExplosion()
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -40,7 +41,6 @@ public class Fireball : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && !isSelected)
         {
             SpawnExplosion();
-            Destroy(gameObject);
         }
     }
 }

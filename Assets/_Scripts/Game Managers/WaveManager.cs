@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Responsible for starting and stopping waves, as well as cooldowns between waves
@@ -8,29 +10,34 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] WaveSpawner spawner;
-    [SerializeField] float waveCooldown = 5f;
+    [SerializeField] float waveCooldown = 5.5f;
 
     int currentEnemyCount = 0;
     int currentWave = 0;
     int loopCount = 0;
-    float currentCountDownValue;
+    float waveCountdown = 0f;
     bool allowWaveSpawns = true;
+
+    bool suppressUpdates;
 
     public static event Action<int> CurrentWaveCount;
     public static event Action<int> UpdateWaveCountdown;
     public static event Action<int> CurrentWaveNumber;
     public static event Action<int> UpdateLoopCount;
+    public static event Action OnLoopBegin;
 
     void OnEnable()
     {
         WaveSpawner.WaveAmount += InitWaveInfo;
         EnemyDeathComponent.OnEnemyDeath += UpdateEnemyCount;
+        LoopAnimator.LoopInProgress += SuppressUpdates;
     }
 
     void OnDisable()
     {
         WaveSpawner.WaveAmount -= InitWaveInfo;
         EnemyDeathComponent.OnEnemyDeath -= UpdateEnemyCount;
+        LoopAnimator.LoopInProgress -= SuppressUpdates;
     }
 
     void Start()
@@ -38,6 +45,18 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(spawner.SpawnWave(currentWave, loopCount));
         CurrentWaveNumber?.Invoke(currentWave + 1);
         UpdateLoopCount?.Invoke(loopCount);
+    }
+
+    void Update()
+    {
+        if (!suppressUpdates)
+        {
+            if (waveCountdown > 0f)
+            {
+                waveCountdown -= Time.deltaTime;
+                UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(waveCountdown));
+            }
+        }
     }
 
     void UpdateEnemyCount()
@@ -55,12 +74,15 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    void SuppressUpdates(bool isLoopInProgress) => suppressUpdates = isLoopInProgress;
+
     void CheckForLoop(int currentWave)
     {
         if (currentWave % spawner.uniqueWaveCount == 0)
         {
             loopCount += 1;
             UpdateLoopCount?.Invoke(loopCount);
+            OnLoopBegin?.Invoke();
         }
     }
 
@@ -71,20 +93,25 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnNextWave(float cooldownDuration, int waveToSpawn)
     {
-        currentCountDownValue = cooldownDuration;
-        UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(currentCountDownValue));
+        waveCountdown = cooldownDuration;
+        UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(waveCountdown));
+        
+        yield return new WaitUntil(() => { return waveCountdown <= 0; });
 
-        while (currentCountDownValue > 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            currentCountDownValue--;
-            UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(currentCountDownValue));
-        }
-
+        Debug.Log("Hello");
         StartCoroutine(spawner.SpawnWave(waveToSpawn, loopCount));
 
         CurrentWaveNumber?.Invoke(waveToSpawn + 1);
         allowWaveSpawns = true;
     }
+
+    [ContextMenu("Force Next Loop")]
+    void NextLoop()
+    {
+        loopCount++;
+        UpdateLoopCount?.Invoke(loopCount);
+        OnLoopBegin?.Invoke();
+    }
 }
+
 

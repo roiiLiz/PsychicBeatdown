@@ -10,10 +10,18 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] List<Wave> waves = new List<Wave>();
     [SerializeField] float timeBetweenSpawns = 0.15f;
     [SerializeField] float waveRadius = 10f;
+    [SerializeField, Range(0, 1f)] float perLoopEnemyChance = 0.1f;
+
+    float loopEnemyChance;
 
     public static event Action<int> WaveAmount; 
 
     public int uniqueWaveCount { get; private set; }
+
+    void OnEnable() => LoopAnimator.LoopIndicate += IncrementChance;
+    void OnDisable() => LoopAnimator.LoopIndicate -= IncrementChance;
+
+    void IncrementChance() => loopEnemyChance += perLoopEnemyChance;
 
     void Start()
     {
@@ -62,7 +70,15 @@ public class WaveSpawner : MonoBehaviour
 
             if (rand <= cumulativeChance)
             {
-                SpawnEnemy(spawn.enemyToSpawn);
+                float isLoop = UnityEngine.Random.Range(0, 1f);
+                if (isLoop <= loopEnemyChance)
+                {
+                    SpawnEnemy(spawn.loopSpawn);
+                } else
+                {
+                    SpawnEnemy(spawn.defaultSpawn);
+                }
+
                 return;
             }
         }

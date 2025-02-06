@@ -1,8 +1,12 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DisplayHealth : MonoBehaviour
 {
+    [SerializeField] Animator hurtIndicator;
+    [SerializeField] Image hurtImage;
     [SerializeField] HealthComponent playerHealth;
     [SerializeField] Sprite healthyImage;
     [SerializeField] Sprite damagedImage;
@@ -10,26 +14,47 @@ public class DisplayHealth : MonoBehaviour
 
     int currentHealth;
 
-    void OnEnable() => HealthComponent.OnDamageTaken += UpdateHealth;
-    void OnDisable() => HealthComponent.OnDamageTaken -= UpdateHealth;
+    void OnEnable()
+    {
+        HealthComponent.OnDamageTaken += SubtractHealth;
+        HealthComponent.OnHeal += AddHealth;
+    }
+
+    void OnDisable()
+    {
+        HealthComponent.OnDamageTaken -= SubtractHealth;
+        HealthComponent.OnHeal += AddHealth;
+    }
 
     void Start()
     {
+        Color initColor = hurtImage.color;
+        initColor.a = 0f;
+        hurtImage.color = initColor;
+
         currentHealth = playerHealth.MaxHealth;
-        UpdateUI();
+        UpdateUI(true);
     }
 
-    void UpdateHealth(int damageTaken, MonoBehaviour context)
+    void AddHealth(int healthHealed, MonoBehaviour context)
     {
         if (context.gameObject.CompareTag("Player"))
         {
-            currentHealth -= damageTaken;
+            currentHealth = Mathf.Clamp(currentHealth + healthHealed, 0, playerHealth.MaxHealth);
+            UpdateUI(true);
         }
-
-        UpdateUI();
     }
 
-    void UpdateUI()
+    void SubtractHealth(int damageTaken, MonoBehaviour context)
+    {
+        if (context.gameObject.CompareTag("Player"))
+        {
+            Mathf.Clamp(currentHealth -= damageTaken, 0f, playerHealth.MaxHealth);
+            UpdateUI(false);
+        }
+    }
+
+    void UpdateUI(bool noDamageFlash)
     {
         foreach (Image image in hearts)
         {
@@ -39,7 +64,10 @@ public class DisplayHealth : MonoBehaviour
         for (int i = 0; i < currentHealth; i++)
         {
             hearts[i].sprite = healthyImage;
-            // Debug.Log("hello");
         }
+
+        if (noDamageFlash) { return ; }
+        
+        hurtIndicator.Play("hurt", -1, 0f);
     }
 }

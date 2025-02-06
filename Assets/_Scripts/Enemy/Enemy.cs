@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected HealthComponent healthComponent;
     [SerializeField] protected MovementComponent movementComponent;
     [SerializeField] protected CinemachineImpulseSource impulseSource;
+    [SerializeField] protected float screenShakeMultiplier;
     [Space]
     [Header("Sprite Variables")]
     [SerializeField] protected Animator animator;
@@ -41,7 +42,7 @@ public abstract class Enemy : MonoBehaviour
 
     void OnDisable()
     {
-        ScreenShakeManager.instance.CameraShake(impulseSource);
+        ScreenShakeManager.instance.CameraShake(impulseSource, screenShakeMultiplier);
     }
 
     protected virtual void Start()

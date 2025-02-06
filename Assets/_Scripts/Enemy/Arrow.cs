@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    [SerializeField] float arrowSpeed;
+    [SerializeField] Stats stats;
 
     bool isSelected = false;
 
@@ -25,7 +25,7 @@ public class Arrow : MonoBehaviour
     {
         if (!isSelected)
         {
-            transform.Translate(Vector2.right * Time.deltaTime * arrowSpeed);
+            transform.Translate(Vector2.right * Time.deltaTime * stats.movementSpeed);
         }
     }
 

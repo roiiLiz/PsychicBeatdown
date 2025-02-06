@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2915150414046958614}
   - component: {fileID: 4416776084308833355}
   - component: {fileID: 4376623357993411305}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4460623589098491696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.678357, y: 0.8523481, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.44970137, b: 0.33490568, a: 1}
+  m_Color: {r: 1, g: 0.5411765, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,9 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 1
   expansionRate: 0.5
-  explosionLingerDuration: 1
+  explosionLingerDuration: 0.5
   destructionSpeedMultiplier: 2
-  maxExplosionScale: {x: 7.5, y: 7.5, z: 1}
+  screenShakeMultiplier: 1.25
+  maxExplosionScale: {x: 3.5, y: 3.5, z: 1}
   easingCurve:
     serializedVersion: 2
     m_Curve:

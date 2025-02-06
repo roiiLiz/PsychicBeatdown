@@ -9,20 +9,18 @@ public class Explosion : MonoBehaviour
     [SerializeField] float expansionRate = 0.5f;
     [SerializeField] float explosionLingerDuration = 1f;
     [SerializeField] float destructionSpeedMultiplier = 2f;
+    [SerializeField] float screenShakeMultiplier;
     [SerializeField] Vector3 maxExplosionScale = new Vector3(2f, 2f, 1f);
     [SerializeField] AnimationCurve easingCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
     [SerializeField] AudioClip explosionAudio;
     Vector3 defaultScale;
 
-    void Awake()
-    {
-        defaultScale = transform.localScale;
-    }
+    void Awake() => defaultScale = transform.localScale;
 
     void Start()
     {
         StartCoroutine(LerpScale(defaultScale, maxExplosionScale, false));
-        ScreenShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
+        ScreenShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>(), screenShakeMultiplier);
         AudioManager.instance.PlaySFX(explosionAudio, transform, 1f);
     }
 
@@ -50,10 +48,7 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    void DestroyExplosion()
-    {
-        StartCoroutine(LerpScale(transform.localScale, Vector3.zero, true));
-    }
+    void DestroyExplosion() => StartCoroutine(LerpScale(transform.localScale, Vector3.zero, true));
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -64,6 +59,10 @@ public class Explosion : MonoBehaviour
             {
                 healthComponent.Damage(damageAmount);
             }
+        } else if (collision.gameObject.GetComponent<Fireball>())
+        {
+            Fireball fireball = collision.gameObject.GetComponent<Fireball>();
+            fireball.SpawnExplosion();
         }
     }
 

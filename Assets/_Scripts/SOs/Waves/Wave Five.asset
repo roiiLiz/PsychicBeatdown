@@ -15,10 +15,13 @@ MonoBehaviour:
   loopMultiplier: 1.5
   waveName: Wave Five
   spawns:
-  - enemyToSpawn: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
+  - defaultSpawn: {fileID: 5893180252918547960, guid: 8702ccd8bde7f1d45b4bce36f6a808c6, type: 3}
+    loopSpawn: {fileID: 5893180252918547960, guid: 12435f4ff2a7c7a43be6f720abe6af47, type: 3}
     weight: 0.9
-  - enemyToSpawn: {fileID: 5893180252918547960, guid: eb5f0a6c428c39a4c95a487e261d2651, type: 3}
+  - defaultSpawn: {fileID: 5893180252918547960, guid: eb5f0a6c428c39a4c95a487e261d2651, type: 3}
+    loopSpawn: {fileID: 5893180252918547960, guid: 3dd6f378e8e52c84d9999349df0c7055, type: 3}
     weight: 0.9
-  - enemyToSpawn: {fileID: 5893180252918547960, guid: 8c02489b6be5bf6459a1da9ffb5b9dff, type: 3}
+  - defaultSpawn: {fileID: 5893180252918547960, guid: 8c02489b6be5bf6459a1da9ffb5b9dff, type: 3}
+    loopSpawn: {fileID: 5893180252918547960, guid: a21893f27a498bb48b223a69a7c447d9, type: 3}
     weight: 0.7
   waveAmount: 40

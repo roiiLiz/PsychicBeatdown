@@ -50,6 +50,7 @@ public class RangedEnemy : Enemy
         {
             sprite.transform.Rotate(0f, 0f, thrownSpinRate * heldSpinMultiplier * Time.deltaTime);
             animator.enabled = false;
+            rangedAttackerComponent.enabled = false;
         }
     }
 

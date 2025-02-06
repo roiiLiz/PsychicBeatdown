@@ -15,9 +15,9 @@ public class ScreenShakeManager : MonoBehaviour
         }
     }
 
-    public void CameraShake(CinemachineImpulseSource impulseSource)
+    public void CameraShake(CinemachineImpulseSource impulseSource, float forceMultiplier)
     {
-        impulseSource.GenerateImpulseWithVelocity(new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0f));
+        impulseSource.GenerateImpulseWithVelocity(new Vector3(UnityEngine.Random.Range(-1f, 1f) * forceMultiplier, UnityEngine.Random.Range(-1f, 1f) * forceMultiplier, 0f));
     }
 }
 

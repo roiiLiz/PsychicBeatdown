@@ -11,13 +11,16 @@ public class WaveUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI loopText;
     [SerializeField] TextMeshProUGUI enemyCountText;
 
+    float currentLoop;
+
     void OnEnable()
     {
         WaveSpawner.WaveAmount += InitWaveUI;
         WaveManager.CurrentWaveNumber += UpdateWaveNumber;
         WaveManager.CurrentWaveCount += UpdateWaveCount;
         WaveManager.UpdateWaveCountdown += UpdateCountdown;
-        WaveManager.UpdateLoopCount += UpdateLoopText;
+        WaveManager.UpdateLoopCount += UpdateLoopCount;
+        LoopAnimator.LoopIndicate += UpdateLoopText;
     }
 
     void OnDisable()
@@ -26,12 +29,19 @@ public class WaveUI : MonoBehaviour
         WaveManager.CurrentWaveNumber -= UpdateWaveNumber;
         WaveManager.CurrentWaveCount -= UpdateWaveCount;
         WaveManager.UpdateWaveCountdown -= UpdateCountdown;
-        WaveManager.UpdateLoopCount -= UpdateLoopText;
+        WaveManager.UpdateLoopCount -= UpdateLoopCount;
+        LoopAnimator.LoopIndicate -= UpdateLoopText;
+    }
+
+    void Start()
+    {
+        UpdateLoopText();
     }
 
     void InitWaveUI(int currentWave) => enemyCountText.text = $"{currentWave}";
     void UpdateWaveNumber(int currentWave) => waveText.text = $"Wave {currentWave}";
     void UpdateWaveCount(int newAmount) => enemyCountText.text = $"{Mathf.Clamp(newAmount, 0f, Mathf.Infinity)}";
     void UpdateCountdown(int countDown) => waveText.text = $"New Wave In {countDown}...";
-    void UpdateLoopText(int loopCount) => loopText.text = $"{loopCount}";
+    void UpdateLoopCount(int loopNumber) => currentLoop = loopNumber;
+    void UpdateLoopText() => loopText.text = $"{currentLoop}";
 }

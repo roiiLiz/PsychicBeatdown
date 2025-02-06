@@ -25,6 +25,6 @@ public class AudioManager : MonoBehaviour
 
         float soundLength = audioSource.clip.length;
 
-        Destroy(audioSource.gameObject, soundLength);
+        Destroy(audioSource.gameObject, soundLength / (1f / Time.timeScale));
     }
 }

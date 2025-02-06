@@ -32,6 +32,8 @@ public class TextWobble : MonoBehaviour
     List<int> wordIndexes = new List<int>{0};
     List<int> wordLengths = new List<int>();
 
+    public void EnableWobble(bool isEnabled) => randomShake = isEnabled;
+
     // Start is called before the first frame update
     void Start()
     {

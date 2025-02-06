@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8186002f45c99458d4c9fd65434bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowSpeed: 7.5
+  stats: {fileID: 11400000, guid: 6195863112bba194a9ebcae349c23928, type: 2}
 --- !u!1 &1312502278118950063
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class RangedAttackerComponent : MonoBehaviour
 {
     [SerializeField] float attackRange = 1f;
     [SerializeField] float attackRate = 1f;
+    [SerializeField, Range(0f, 1f)] float maximumRandomDelay;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform pivot;
     [SerializeField] Transform firingPoint;
@@ -66,6 +67,8 @@ public class RangedAttackerComponent : MonoBehaviour
     {
         float t = 0f;
         float cooldown = 1f / attackRate;
+
+        cooldown += UnityEngine.Random.Range(0f, maximumRandomDelay);
 
         while (cooldown > t)
         {

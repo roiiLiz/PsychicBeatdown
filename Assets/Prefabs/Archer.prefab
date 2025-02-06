@@ -371,6 +371,7 @@ MonoBehaviour:
   healthComponent: {fileID: 7411619229258172720}
   movementComponent: {fileID: 3653594261560006789}
   impulseSource: {fileID: 8759644880909744229}
+  screenShakeMultiplier: 1
   animator: {fileID: 1586877554118605164}
   sprite: {fileID: 5689551439244042714}
   thrownSpinRate: 720
@@ -391,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   deathComponent: {fileID: 11400000, guid: d40f3e974536465448067bf003110793, type: 2}
-  hurtSound: {fileID: 8300000, guid: 995340f32e1fa8c46838fe2e1ef533c0, type: 3}
+  hurtSound: {fileID: 8300000, guid: a01214117fcea9347ab2044c7e674f9c, type: 3}
   hurtSoundVolume: 1
 --- !u!114 &3653594261560006789
 MonoBehaviour:
@@ -451,6 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 10
   attackRate: 0.5
+  maximumRandomDelay: 0.5
   projectilePrefab: {fileID: 1110041021997185212, guid: 40d0fd5015ce69a49baf68ab06359d61, type: 3}
   pivot: {fileID: 6180917130946301219}
   firingPoint: {fileID: 4258169988433906206}

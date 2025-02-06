@@ -339,6 +339,7 @@ MonoBehaviour:
   healthComponent: {fileID: 7411619229258172720}
   movementComponent: {fileID: 3653594261560006789}
   impulseSource: {fileID: 4564624098985723092}
+  screenShakeMultiplier: 1
   animator: {fileID: 8517891665520134311}
   sprite: {fileID: 863437658223875084}
   thrownSpinRate: 720
@@ -358,7 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   deathComponent: {fileID: 11400000, guid: d40f3e974536465448067bf003110793, type: 2}
-  hurtSound: {fileID: 8300000, guid: 995340f32e1fa8c46838fe2e1ef533c0, type: 3}
+  hurtSound: {fileID: 8300000, guid: a01214117fcea9347ab2044c7e674f9c, type: 3}
   hurtSoundVolume: 1
 --- !u!114 &3653594261560006789
 MonoBehaviour:
@@ -821,7 +822,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6611466412391246956}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
