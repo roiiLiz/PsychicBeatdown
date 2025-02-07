@@ -57,9 +57,21 @@ public class Explosion : MonoBehaviour
             HealthComponent healthComponent = collision.GetComponent<HealthComponent>();
             if (healthComponent != null)
             {
-                healthComponent.Damage(damageAmount);
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+                {
+                    healthComponent.maxHits--;
+                } 
+
+                if (healthComponent.maxHits > -1)
+                {
+                    healthComponent.Damage(damageAmount);
+                } else
+                {
+                    Destroy(collision.gameObject);
+                }
+                
             }
-        } else if (collision.gameObject.GetComponent<Fireball>())
+        } else if (collision.gameObject.GetComponent<Fireball>() && collision.gameObject.layer != LayerMask.NameToLayer("HeldObjects"))
         {
             Fireball fireball = collision.gameObject.GetComponent<Fireball>();
             fireball.SpawnExplosion();

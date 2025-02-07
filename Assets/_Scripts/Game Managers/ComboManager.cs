@@ -23,7 +23,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] Color defaultColor;
 
     float currentComboTime, comboMultiplier;
-    bool suppressUpdates, isComboActivated;
+    bool suppressUpdates, isComboActivated, isWaveCoolingDown;
     int comboScore, totalComboScore;
     TextWobble letterWobble, multiplierWobble;
 
@@ -34,6 +34,7 @@ public class ComboManager : MonoBehaviour
         EnemyDeathComponent.OnEnemyDeath += GainCombo;
         LoopAnimator.LoopInProgress += AreUpdatesSuppressed;
         PlayerDeathComponent.OnPlayerDeath += EndCombo;
+        WaveManager.WaveCoolingDown += IsWaveInProgress;
     }
 
     void OnDisable()
@@ -41,7 +42,10 @@ public class ComboManager : MonoBehaviour
         EnemyDeathComponent.OnEnemyDeath -= GainCombo;
         LoopAnimator.LoopInProgress -= AreUpdatesSuppressed;
         PlayerDeathComponent.OnPlayerDeath -= EndCombo;
+        WaveManager.WaveCoolingDown -= IsWaveInProgress;
     }
+
+    void IsWaveInProgress(bool isInProgress) => isWaveCoolingDown = isInProgress;
 
     void EndCombo() => AddComboScore();
 
@@ -59,25 +63,27 @@ public class ComboManager : MonoBehaviour
 
     void Update()
     {
-        if (!suppressUpdates)
+        comboSlider.value = currentComboTime;
+
+        if (suppressUpdates) { return; }
+
+        if (isWaveCoolingDown) { return; }
+
+        if (currentComboTime > 0f)
         {
-            if (currentComboTime > 0f)
+            currentComboTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (isComboActivated)
             {
-                currentComboTime -= Time.deltaTime;
+                isComboActivated = false;
 
-                comboSlider.value = currentComboTime;
-            } else
-            {
-                if (isComboActivated)
-                {
-                    isComboActivated = false;
+                AddComboScore();
 
-                    AddComboScore();
+                ResetSettings();
 
-                    ResetSettings();
-
-                    StartCoroutine(LerpAlpha(comboIndicator.alpha, 0f));
-                }
+                StartCoroutine(LerpAlpha(comboIndicator.alpha, 0f));
             }
         }
     }
@@ -89,17 +95,21 @@ public class ComboManager : MonoBehaviour
 
         if (letterWobble != null)
         {
-            letterWobble.EnableWobble(false);
+            letterWobble.SetShakeMultiplier(0f);
+            letterWobble.EnableColor(false);
         }
 
         if (multiplierWobble != null)
         {
-            multiplierWobble.EnableWobble(false);
+            multiplierWobble.SetShakeMultiplier(0f);
+            multiplierWobble.EnableColor(false);
         }
 
         letterText.color = defaultColor;
         multiplierText.color = defaultColor;
         comboFill.color = defaultColor;
+
+        comboSlider.maxValue = maxComboTime;
     }
 
     void GainCombo()
@@ -109,12 +119,12 @@ public class ComboManager : MonoBehaviour
             currentComboTime = maxComboTime;
         } else
         {
-            currentComboTime = Mathf.Clamp(currentComboTime + perEnemyComboExtension, 0f, maxComboTime);
+            currentComboTime = Mathf.Clamp(currentComboTime + perEnemyComboExtension, 0f, comboSlider.maxValue);
         }
 
         if (comboIndicator.alpha != 1f)
         {
-            StopAllCoroutines();
+            StopCoroutine("LerpAlpha");
             StartCoroutine(LerpAlpha(comboIndicator.alpha, 1f));
         }
   
@@ -136,23 +146,23 @@ public class ComboManager : MonoBehaviour
                 letterText.text = $"{combo.comboLetter}";
                 multiplierText.text = $"x{combo.comboMultiplier}";
                 
-                if (combo.enableShake)
+                if (letterWobble != null)
                 {
+                    letterWobble.SetShakeMultiplier(combo.shakeMultiplier);
+                    letterWobble.EnableColor(combo.gradientEnabled);
+                }
 
-                    if (letterWobble != null)
-                    {
-                        letterWobble.EnableWobble(true);
-                    }
-
-                    if (multiplierWobble != null)
-                    {
-                        multiplierWobble.EnableWobble(true);
-                    }
+                if (multiplierWobble != null)
+                {
+                    multiplierWobble.SetShakeMultiplier(combo.shakeMultiplier);
+                    multiplierWobble.EnableColor(combo.gradientEnabled);
                 }
 
                 letterText.color = combo.color;
                 multiplierText.color = combo.color;
                 comboFill.color = combo.color;
+
+                comboSlider.maxValue = maxComboTime * combo.comboLengthMultiplier;
             }
         }
     }

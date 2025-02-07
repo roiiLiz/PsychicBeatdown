@@ -19,12 +19,14 @@ public class WaveManager : MonoBehaviour
     bool allowWaveSpawns = true;
 
     bool suppressUpdates;
+    bool waveCoolingDown;
 
     public static event Action<int> CurrentWaveCount;
     public static event Action<int> UpdateWaveCountdown;
     public static event Action<int> CurrentWaveNumber;
     public static event Action<int> UpdateLoopCount;
     public static event Action OnLoopBegin;
+    public static event Action<bool> WaveCoolingDown;
 
     void OnEnable()
     {
@@ -49,12 +51,18 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        if (!suppressUpdates)
+        if (suppressUpdates) { return; }
+
+        if (waveCountdown > 0f)
         {
-            if (waveCountdown > 0f)
+            waveCountdown -= Time.deltaTime;
+            UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(waveCountdown));
+        } else
+        {
+            if (waveCoolingDown)
             {
-                waveCountdown -= Time.deltaTime;
-                UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(waveCountdown));
+                waveCoolingDown = false;
+                WaveCoolingDown?.Invoke(waveCoolingDown);
             }
         }
     }
@@ -70,11 +78,12 @@ public class WaveManager : MonoBehaviour
             // Debug.Log($"Spawning wave {currentWave++}");
             currentWave += 1;
             CheckForLoop(currentWave);
-            StartCoroutine(SpawnNextWave(waveCooldown, currentWave));
+            StartCoroutine(SpawnNextWave(waveCooldown + 0.99f, currentWave));
         }
     }
 
     void SuppressUpdates(bool isLoopInProgress) => suppressUpdates = isLoopInProgress;
+    void InitWaveInfo(int waveAmount) => currentEnemyCount = waveAmount;
 
     void CheckForLoop(int currentWave)
     {
@@ -86,19 +95,16 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void InitWaveInfo(int waveAmount)
-    {
-        currentEnemyCount = waveAmount;
-    }
-
     IEnumerator SpawnNextWave(float cooldownDuration, int waveToSpawn)
     {
+        waveCoolingDown = true;
         waveCountdown = cooldownDuration;
+        WaveCoolingDown?.Invoke(waveCoolingDown);
         UpdateWaveCountdown?.Invoke(Mathf.RoundToInt(waveCountdown));
         
         yield return new WaitUntil(() => { return waveCountdown <= 0; });
 
-        Debug.Log("Hello");
+        // Debug.Log("Hello");
         StartCoroutine(spawner.SpawnWave(waveToSpawn, loopCount));
 
         CurrentWaveNumber?.Invoke(waveToSpawn + 1);

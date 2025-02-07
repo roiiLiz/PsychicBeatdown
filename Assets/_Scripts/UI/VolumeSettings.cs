@@ -32,6 +32,7 @@ public class VolumeSettings : MonoBehaviour
         float volume = slider.value;
         audioMixer.SetFloat(mixerType, Mathf.Log10(volume) * 20f);
         PlayerPrefs.SetFloat(settingsKey, volume);
+        PlayerPrefs.Save();
     }
 
     void LoadValue()

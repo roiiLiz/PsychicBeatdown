@@ -7,5 +7,7 @@ public class Combo : ScriptableObject
     public float comboMultiplier;
     public float scoreThreshold;
     public Color color;
-    public bool enableShake;
+    public bool gradientEnabled;
+    public float shakeMultiplier;
+    [Range(0, 1f)] public float comboLengthMultiplier;
 }

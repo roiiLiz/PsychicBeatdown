@@ -70,6 +70,7 @@ public class EndScoreTracker : MonoBehaviour
         {
             highScoreText.SetActive(true);
             PlayerPrefs.SetInt("HighScore", currentScore);
+            PlayerPrefs.Save();
         } else
         {
             highScoreText.SetActive(false);

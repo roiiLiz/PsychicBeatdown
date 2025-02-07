@@ -23,7 +23,7 @@ public class DisplayHealth : MonoBehaviour
     void OnDisable()
     {
         HealthComponent.OnDamageTaken -= SubtractHealth;
-        HealthComponent.OnHeal += AddHealth;
+        HealthComponent.OnHeal -= AddHealth;
     }
 
     void Start()
@@ -38,6 +38,7 @@ public class DisplayHealth : MonoBehaviour
 
     void AddHealth(int healthHealed, MonoBehaviour context)
     {
+        Debug.Log("Adding health~!");
         if (context.gameObject.CompareTag("Player"))
         {
             currentHealth = Mathf.Clamp(currentHealth + healthHealed, 0, playerHealth.MaxHealth);
@@ -49,7 +50,7 @@ public class DisplayHealth : MonoBehaviour
     {
         if (context.gameObject.CompareTag("Player"))
         {
-            Mathf.Clamp(currentHealth -= damageTaken, 0f, playerHealth.MaxHealth);
+            currentHealth = Mathf.Clamp(currentHealth - damageTaken, 0, playerHealth.MaxHealth);
             UpdateUI(false);
         }
     }

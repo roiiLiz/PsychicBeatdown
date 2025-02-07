@@ -32,7 +32,13 @@ public class TextWobble : MonoBehaviour
     List<int> wordIndexes = new List<int>{0};
     List<int> wordLengths = new List<int>();
 
-    public void EnableWobble(bool isEnabled) => enableWobble = isEnabled;
+    public void SetShakeMultiplier(float shakeMulti)
+    {
+        xWobbleFactor = shakeMulti;
+        yWobbleFactor = shakeMulti;
+    }
+
+    public void EnableColor(bool isEnabled) => enableColorGradient = isEnabled;
 
     // Start is called before the first frame update
     void Start()

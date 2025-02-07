@@ -44,17 +44,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "3582a297-b52b-4cf8-9c24-72e13327b673",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "StickDeadzone(min=0.2)",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "WASD",
                     "id": "75a83da6-2f8f-4578-b983-eec61fc56a37",
                     "path": "2DVector",
@@ -111,17 +100,6 @@
                 },
                 {
                     "name": "",
-                    "id": "07e48b7f-7db4-4434-a619-28250076bb02",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "StickDeadzone(min=0.14),ScaleVector2(x=0.25,y=0.25)",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7f4d38de-e48d-451d-8ff7-17fee464e932",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -144,30 +122,8 @@
                 },
                 {
                     "name": "",
-                    "id": "67335d97-3ac6-41a6-93a7-a49fd4abec58",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9853a4c9-4061-49b8-9e70-4b4c9b3c3e3c",
                     "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8f44f2f1-6db2-4931-b184-3332b1375597",
-                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

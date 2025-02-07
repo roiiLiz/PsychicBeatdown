@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboLetter: C
   comboMultiplier: 2
-  scoreThreshold: 40
+  scoreThreshold: 30
   color: {r: 0.9433962, g: 0.7407098, b: 0.36044857, a: 1}
-  enableShake: 0
+  gradientEnabled: 0
+  shakeMultiplier: 1.5
+  comboLengthMultiplier: 0.85

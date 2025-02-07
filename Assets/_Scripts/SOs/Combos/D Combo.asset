@@ -16,4 +16,6 @@ MonoBehaviour:
   comboMultiplier: 1.5
   scoreThreshold: 15
   color: {r: 0.9339623, g: 0.8624956, b: 0.6123621, a: 1}
-  enableShake: 0
+  gradientEnabled: 0
+  shakeMultiplier: 1
+  comboLengthMultiplier: 0.9

@@ -16,8 +16,8 @@ public class ThrowScript : MonoBehaviour
 
     public static event Action<GameObject> HeldObject;
 
-    void OnEnable() { ThrowableComponent.OnThrowableSelected += SetCurrentSelection; }
-    void OnDisable() { ThrowableComponent.OnThrowableSelected -= SetCurrentSelection; }
+    void OnEnable() => ThrowableComponent.OnThrowableSelected += SetCurrentSelection;
+    void OnDisable() => ThrowableComponent.OnThrowableSelected -= SetCurrentSelection;
 
     void SetCurrentSelection(MonoBehaviour context) => currentSelection = context != null ? context.gameObject : null;
 

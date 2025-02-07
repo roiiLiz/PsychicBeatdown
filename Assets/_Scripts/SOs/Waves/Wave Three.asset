@@ -24,4 +24,4 @@ MonoBehaviour:
   - defaultSpawn: {fileID: 5893180252918547960, guid: 8c02489b6be5bf6459a1da9ffb5b9dff, type: 3}
     loopSpawn: {fileID: 5893180252918547960, guid: a21893f27a498bb48b223a69a7c447d9, type: 3}
     weight: 0.25
-  waveAmount: 20
+  waveAmount: 25
