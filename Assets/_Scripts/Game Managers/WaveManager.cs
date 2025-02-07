@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] WaveSpawner spawner;
     [SerializeField] float waveCooldown = 5.5f;
+    [SerializeField] float waveOffset = 0.5f;
 
     int currentEnemyCount = 0;
     int currentWave = 0;
@@ -78,7 +79,7 @@ public class WaveManager : MonoBehaviour
             // Debug.Log($"Spawning wave {currentWave++}");
             currentWave += 1;
             CheckForLoop(currentWave);
-            StartCoroutine(SpawnNextWave(waveCooldown + 0.99f, currentWave));
+            StartCoroutine(SpawnNextWave(waveCooldown + waveOffset, currentWave));
         }
     }
 

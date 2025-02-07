@@ -71,7 +71,7 @@ public class ComboManager : MonoBehaviour
 
         if (currentComboTime > 0f)
         {
-            currentComboTime -= Time.deltaTime;
+            currentComboTime -= Time.deltaTime * (1f / Time.timeScale);
         }
         else
         {
